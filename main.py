@@ -11,11 +11,10 @@ if st.button("Tambahkan Data"):
 if st.session_state.show_form:
     st.markdown("### Tambahkan Data Waktu dan Konsentrasi")
     with st.form("form_tambah_data"):
-        nama = st.text_input("Nama")
-        umur = st.number_input("Umur", min_value=0, max_value=120)
-        pekerjaan = st.selectbox("Pekerjaan", ["Pelajar", "Mahasiswa", "Karyawan", "Lainnya"])
+        waktu = st.number_input("Waktu", min_value= 0.0, format="%.2f)
+        konsentrasi = st.number_input("Konsentrasi", min_value=0.0, max_)
         
         submitted = st.form_submit_button("Simpan")
         
         if submitted:
-            st.success(f"✅ Data disimpan:\n- Nama: {nama}\n- Umur: {umur}\n- Pekerjaan: {pekerjaan}")
+            st.success(f"✅ Data disimpan:\n- Waktu: {waktu}\n- Konsentrasi: {konsentrasi}")
