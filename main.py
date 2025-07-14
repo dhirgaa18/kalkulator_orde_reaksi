@@ -1,4 +1,3 @@
 import streamlit as st
 
-st.title("Orde Reaction Calc")
-st.title("_Streamlit_ is :blue[cool] :sunglasses:")
+st.markdown("<h1 style='text-align: center;'>Judul di Tengah</h1>", unsafe_allow_html=True)
