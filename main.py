@@ -9,7 +9,7 @@ if st.button("Tambahkan Data"):
     st.session_state.show_form = not st.session_state.show_form
     
 if st.session_state.show_form:
-    st.markdown("### Form Tambah Data")
+    st.markdown("### Tambahkan Data Waktu dan Konsentrasi")
     with st.form("form_tambah_data"):
         nama = st.text_input("Nama")
         umur = st.number_input("Umur", min_value=0, max_value=120)
