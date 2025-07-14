@@ -5,8 +5,6 @@ st.markdown("<h1 style='text-align: center;'>Orde Reaction Calculator</h1>", uns
 if "show_form" not in st.session_state:
     st.session_state.show_form = False
 
-st.title("Manajemen Data")
-
 if st.button("Tambahkan Data"):
     st.session_state.show_form = not st.session_state.show_form
     
