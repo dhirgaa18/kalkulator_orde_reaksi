@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import r2_score
 
 st.set_page_config(page_title="Regresi Polinomial dari Tabel", layout="centered")
-st.title("📈 Regresi Polinomial dan Korelasi dari Tabel Data")
+st.title("Orde Reaction Calculator")
 
 st.markdown("""
 Masukkan data Waktu (X) dan Konsentrasi (Y) melalui tabel di bawah ini. Kemudian pilih satu atau beberapa orde regresi
