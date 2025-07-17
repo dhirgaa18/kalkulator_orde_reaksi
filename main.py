@@ -28,8 +28,7 @@ if st.session_state.show_form:
             st.success(f"✅ Data disimpan:\n- Waktu: {waktu}\n- Konsentrasi: {konsentrasi}")
 
 # Tampilkan data
-df = pd.DataFrame(
-    np.random.randn(10, 5), columns=("col %d" % i for i in range(5))
-)
-
-st.table(df)
+if st.session_state.data_entries:
+    st.markdown("### Data yang Disimpan")
+    df = pd.DataFrame(st.session_state.data_entries)  # Create DataFrame from session state data
+    st.table(df
