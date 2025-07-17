@@ -1,4 +1,6 @@
 import streamlit as st
+import pandas as pd
+import numpy as np
 
 st.markdown("<h1 style='text-align: center;'>Orde Reaction Calculator</h1>", unsafe_allow_html=True)
 
@@ -26,7 +28,8 @@ if st.session_state.show_form:
             st.success(f"✅ Data disimpan:\n- Waktu: {waktu}\n- Konsentrasi: {konsentrasi}")
 
 # Tampilkan data
-if st.session_state.data_entries:
-    st.markdown("### Data yang Disimpan")
-    df = pd.DataFrame(st.session_state.data_entries)
-    st.table(df)
+df = pd.DataFrame(
+    np.random.randn(10, 5), columns=("col %d" % i for i in range(5))
+)
+
+st.table(df)
