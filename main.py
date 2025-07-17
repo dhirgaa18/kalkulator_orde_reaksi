@@ -2,100 +2,79 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
 
-st.set_page_config(page_title="Kinetika Reaksi", layout="centered")
-st.title("🔬 Analisis Orde Reaksi Berdasarkan Data Waktu dan Konsentrasi")
+st.set_page_config(page_title="Regresi Orde Reaksi", layout="centered")
+st.title("Analisis Orde Reaksi Berdasarkan Data Konsentrasi vs Waktu")
 
 st.markdown("""
-Masukkan data waktu dan konsentrasi. Program ini akan menghitung regresi linier berdasarkan model kinetika reaksi:
+Masukkan data waktu (t) dan konsentrasi atau absorbansi (A) pada tabel berikut. Aplikasi ini akan menampilkan grafik dan analisis regresi untuk orde 0, 1, dan 2 berdasarkan persamaan kinetika reaksi.
 
-- **Orde 0** → [A] vs waktu  
-- **Orde 1** → ln[A] vs waktu  
-- **Orde 2** → 1/[A] vs waktu
-
-Kemudian akan menampilkan model terbaik berdasarkan nilai R² tertinggi.
+- *Orde 0:* A = A₀ - kt
+- *Orde 1:* ln A = ln A₀ - kt
+- *Orde 2:* 1/A = kt + 1/A₀
 """)
 
-# Tabel input
+# Tabel input data
 default_data = pd.DataFrame({
-    'Waktu': [0, 1, 2, 3, 4],
-    'Konsentrasi': [0.50, 0.40, 0.31, 0.25, 0.20]
+    't': [0, 1, 2, 3, 4, 5],
+    'A': [10, 8.4, 7.1, 5.9, 4.8, 3.6]
 })
 data = st.data_editor(default_data, num_rows="dynamic", use_container_width=True)
 
+# Validasi data
 if len(data.dropna()) >= 2:
     try:
-        waktu = data['Waktu'].astype(float).to_numpy()
-        konsentrasi = data['Konsentrasi'].astype(float).to_numpy()
+        t = data['t'].astype(float).to_numpy()
+        A = data['A'].astype(float).to_numpy()
 
         selected_orders = st.multiselect(
-            "Pilih orde reaksi yang ingin dianalisis:",
+            "Pilih orde reaksi untuk dianalisis:",
             options=[0, 1, 2],
-            default=[0, 1, 2]
+            default=[0, 1, 2],
+            format_func=lambda x: f"Orde {x}"
         )
 
         fig, ax = plt.subplots(figsize=(10, 6))
-        ax.set_title("Regresi Kinetika Reaksi")
-        ax.set_xlabel("Waktu")
-        ax.set_ylabel("Transformasi Konsentrasi")
+        colors = ['red', 'green', 'blue']
 
-        colors = {0: "blue", 1: "green", 2: "red"}
-        best_r2 = -np.inf
-        best_order = None
-        best_equation = ""
-
-        for order in selected_orders:
+        for i, order in enumerate(selected_orders):
             if order == 0:
-                y_trans = konsentrasi
-                label = "[A]"
+                X = t.reshape(-1, 1)
+                Y = A
+                label = "Orde 0: A vs t"
             elif order == 1:
-                if np.any(konsentrasi <= 0):
-                    st.warning("⚠️ Tidak dapat menghitung ln(Konsentrasi) karena ada nilai ≤ 0.")
+                if np.any(A <= 0):
+                    st.warning("Terdapat nilai A <= 0, tidak bisa dihitung ln(A) untuk orde 1.")
                     continue
-                y_trans = np.log(konsentrasi)
-                label = "ln[A]"
+                X = t.reshape(-1, 1)
+                Y = np.log(A)
+                label = "Orde 1: ln A vs t"
             elif order == 2:
-                if np.any(konsentrasi == 0):
-                    st.warning("⚠️ Tidak dapat menghitung 1/Konsentrasi karena ada nilai = 0.")
+                if np.any(A <= 0):
+                    st.warning("Terdapat nilai A <= 0, tidak bisa dihitung 1/A untuk orde 2.")
                     continue
-                y_trans = 1 / konsentrasi
-                label = "1/[A]"
-            else:
-                continue
+                X = t.reshape(-1, 1)
+                Y = 1 / A
+                label = "Orde 2: 1/A vs t"
 
-            coeffs = np.polyfit(waktu, y_trans, 1)
-            slope, intercept = coeffs
-            y_pred = slope * waktu + intercept
-            r2 = r2_score(y_trans, y_pred)
+            model = LinearRegression()
+            model.fit(X, Y)
+            Y_pred = model.predict(X)
+            r2 = r2_score(Y, Y_pred)
 
-            # Cek R² terbaik
-            if r2 > best_r2:
-                best_r2 = r2
-                best_order = order
-                best_equation = f"{label} = {intercept:.4f} + {slope:.4f}·waktu"
+            ax.plot(t, Y, 'o', color=colors[i], label=label + f"\nR² = {r2:.4f}")
+            ax.plot(t, Y_pred, '-', color=colors[i], label=f"Fit Orde {order}: y = {model.coef_[0]:.4f}t + {model.intercept_:.4f}")
 
-            # Plot data dan fit
-            ax.plot(waktu, y_trans, 'o', color=colors[order], label=f"Orde {order} Data")
-            ax.plot(waktu, y_pred, '-', color=colors[order], label=f"Orde {order} Fit (R² = {r2:.4f})")
-
-            # Tampilkan persamaan
-            st.markdown(f"""
-            ### Orde {order}
-            Transformasi: `{label} = {intercept:.4f} + {slope:.4f}·waktu`  
-            R² = `{r2:.4f}`
-            """)
-
+        ax.set_xlabel("Waktu (t)")
+        ax.set_ylabel("Transformasi A sesuai orde")
+        ax.set_title("Regresi Kinetika Reaksi Kimia")
         ax.legend()
         ax.grid(True)
         st.pyplot(fig)
 
-        # Hasil terbaik
-        if best_order is not None:
-            st.success(f"✅ **Orde terbaik adalah Orde {best_order}** dengan R² = `{best_r2:.4f}`")
-            st.markdown(f"**Model terbaik:** `{best_equation}`")
-
     except Exception as e:
-        st.error(f"❌ Terjadi kesalahan saat memproses data: {e}")
+        st.error(f"Terjadi kesalahan saat memproses data: {e}")
 else:
-    st.warning("⚠️ Masukkan setidaknya dua pasang data valid.")
+    st.warning("Masukkan minimal dua baris data valid.")
