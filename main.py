@@ -19,8 +19,8 @@ Model regresi:
 
 # Tabel input: sebagai teks agar koma bisa ditangani
 default_data = pd.DataFrame({
-    'Waktu': ['0', '1', '2', '3', '4'],
-    'Konsentrasi': ['0,50', '0,40', '0,31', '0,25', '0,20']
+    'Waktu': [],
+    'Konsentrasi': []
 })
 data = st.data_editor(default_data, num_rows="dynamic", use_container_width=True)
 
