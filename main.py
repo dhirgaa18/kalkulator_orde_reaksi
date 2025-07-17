@@ -18,8 +18,8 @@ Masukkan data waktu (t) dan konsentrasi atau absorbansi (A) pada tabel berikut. 
 
 # Tabel input data
 default_data = pd.DataFrame({
-    't': [0, 1, 2, 3, 4, 5],
-    'A': [10, 8.4, 7.1, 5.9, 4.8, 3.6]
+    't': [],
+    'A': []
 })
 data = st.data_editor(default_data, num_rows="dynamic", use_container_width=True)
 
