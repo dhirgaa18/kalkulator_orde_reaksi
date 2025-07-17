@@ -31,4 +31,4 @@ if st.session_state.show_form:
 if st.session_state.data_entries:
     st.markdown("### Data yang Disimpan")
     df = pd.DataFrame(st.session_state.data_entries)  # Create DataFrame from session state data
-    st.table(df
+    st.table(df)
