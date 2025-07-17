@@ -1,53 +1,62 @@
 import streamlit as st
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.metrics import r2_score
 
-st.title("Orde Reaction Calculator")
+st.set_page_config(page_title="Regresi Polinomial dari Tabel", layout="centered")
+st.title("📈 Regresi Polinomial dan Korelasi dari Tabel Data")
 
-# Inisialisasi session state
-if "data_entries" not in st.session_state:
-    st.session_state.data_entries = []
-if "edit_index" not in st.session_state:
-    st.session_state.edit_index = None
+st.markdown("""
+Masukkan data X dan Y melalui tabel di bawah ini. Kemudian pilih satu atau beberapa orde regresi
+(orde 0 = konstan, orde 1 = linear, orde 2 = kuadratik, dst) yang ingin ditampilkan.
+""")
 
-# Tambah data baru
-with st.form("form_tambah"):
-    st.subheader("Tambah Data Baru")
-    waktu_baru = st.number_input("Waktu", min_value=0.0, format="%.2f")
-    kons_baru = st.number_input("Konsentrasi", min_value=0.0, format="%.4f")
-    if st.form_submit_button("Simpan"):
-        st.session_state.data_entries.append({
-            "Waktu": waktu_baru,
-            "Konsentrasi": kons_baru
-        })
-        st.success("✅ Data ditambahkan.")
+# --- Tabel input data default
+default_data = pd.DataFrame({
+    'X': [1, 2, 3, 4, 5, 6],
+    'Y': [2.5, 3.7, 7.2, 13.8, 21.5, 30.1]
+})
 
-# Tampilkan tabel dengan tombol edit dan form edit lokal
-if st.session_state.data_entries:
-    st.subheader("Data Tersimpan")
-    
-    col_head1, col_head2, col_head3, col_head4 = st.columns([1, 2, 3, 2])
-    col_head1.markdown("**No.**")
-    col_head2.markdown("**Waktu**")
-    col_head3.markdown("**Konsentrasi**")
-    col_head4.markdown("**Aksi**")
-    
-    for i, entry in enumerate(st.session_state.data_entries):
-        col1, col2, col3, col4 = st.columns([1, 2, 3, 2])
-        col1.write(i + 1)
-        col2.write(entry["Waktu"])
-        col3.write(entry["Konsentrasi"])
-        
-        if st.session_state.edit_index == i:
-            with col4.form(f"form_edit_{i}"):
-                new_waktu = st.number_input("Waktu", value=entry["Waktu"], key=f"w_{i}")
-                new_kons = st.number_input("Konsentrasi", value=entry["Konsentrasi"], key=f"k_{i}")
-                simpan_edit = st.form_submit_button("Simpan Perubahan")
-                if simpan_edit:
-                    st.session_state.data_entries[i] = {
-                        "Waktu": new_waktu,
-                        "Konsentrasi": new_kons
-                    }
-                    st.success(f"✅ Baris {i+1} berhasil diperbarui.")
-                    st.session_state.edit_index = None
-        else:
-            if col4.button("Edit", key=f"edit_btn_{i}"):
-                st.session_state.edit_index = i
+data = st.data_editor(default_data, num_rows="dynamic", use_container_width=True)
+
+# Validasi data minimal
+if len(data.dropna()) >= 2:
+    try:
+        x = data['X'].astype(float).to_numpy()
+        y = data['Y'].astype(float).to_numpy()
+
+        # Pilihan orde regresi
+        selected_orders = st.multiselect(
+            "Pilih orde regresi yang ingin ditampilkan:",
+            options=list(range(0, 6)),
+            default=[1, 2]
+        )
+
+        # Plot
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.scatter(x, y, color="black", label="Data Asli")
+
+        x_linspace = np.linspace(x.min(), x.max(), 200)
+
+        for order in selected_orders:
+            coeffs = np.polyfit(x, y, deg=order)
+            poly_func = np.poly1d(coeffs)
+            y_pred = poly_func(x)
+            r2 = r2_score(y, y_pred)
+
+            # Gambar garis regresi
+            ax.plot(x_linspace, poly_func(x_linspace), label=f"Orde {order} (R² = {r2:.4f})")
+
+        ax.set_xlabel("X")
+        ax.set_ylabel("Y")
+        ax.set_title("Regresi Polinomial")
+        ax.legend()
+        ax.grid(True)
+
+        st.pyplot(fig)
+
+    except Exception as e:
+        st.error(f"Terjadi kesalahan saat memproses data: {e}")
+else:
+    st.warning("⚠️ Masukkan setidaknya dua pasang data pada tabel.")
