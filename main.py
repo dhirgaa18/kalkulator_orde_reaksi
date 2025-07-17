@@ -28,5 +28,5 @@ if st.session_state.show_form:
 # Tampilkan data
 if st.session_state.data_entries:
     st.markdown("### Data yang Disimpan")
-    for entry in st.session_state.data_entries:
-        st.write(f"- Waktu: {entry['waktu']}, Konsentrasi: {entry['konsentrasi']}")
+    df = pd.DataFrame(st.session_state.data_entries)
+    st.table(df)
