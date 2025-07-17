@@ -14,8 +14,8 @@ Masukkan data X dan Y melalui tabel di bawah ini. Kemudian pilih satu atau beber
 
 # --- Tabel input data default
 default_data = pd.DataFrame({
-    'X': [1, 2, 3, 4, 5, 6],
-    'Y': [2.5, 3.7, 7.2, 13.8, 21.5, 30.1]
+    'X': [, , , , , ],
+    'Y': [, , , , , ]
 })
 
 data = st.data_editor(default_data, num_rows="dynamic", use_container_width=True)
