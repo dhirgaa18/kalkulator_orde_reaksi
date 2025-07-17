@@ -8,14 +8,14 @@ st.set_page_config(page_title="Regresi Polinomial dari Tabel", layout="centered"
 st.title("📈 Regresi Polinomial dan Korelasi dari Tabel Data")
 
 st.markdown("""
-Masukkan data X dan Y melalui tabel di bawah ini. Kemudian pilih satu atau beberapa orde regresi
+Masukkan data Waktu (X) dan Konsentrasi (Y) melalui tabel di bawah ini. Kemudian pilih satu atau beberapa orde regresi
 (orde 0 = konstan, orde 1 = linear, orde 2 = kuadratik, dst) yang ingin ditampilkan.
 """)
 
 # --- Tabel input data default
 default_data = pd.DataFrame({
-    'X': [],
-    'Y': []
+    'Waktu': [],
+    'Konsentrasi': []
 })
 
 data = st.data_editor(default_data, num_rows="dynamic", use_container_width=True)
