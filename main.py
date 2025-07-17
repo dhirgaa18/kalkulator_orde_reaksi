@@ -5,37 +5,29 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import r2_score
 
 st.set_page_config(page_title="Kinetika Reaksi", layout="centered")
-st.title("🔬 Analisis Orde Reaksi (dengan Koma Desimal)")
+st.title("🔬 Analisis Orde Reaksi Berdasarkan Data Waktu dan Konsentrasi")
 
 st.markdown("""
-Masukkan data waktu dan konsentrasi di bawah.  
-Gunakan **koma** untuk pemisah desimal (misalnya: `0,5` untuk 0.5).
+Masukkan data waktu dan konsentrasi. Program ini akan menghitung regresi linier berdasarkan model kinetika reaksi:
 
-Model regresi:
 - **Orde 0** → [A] vs waktu  
 - **Orde 1** → ln[A] vs waktu  
 - **Orde 2** → 1/[A] vs waktu
+
+Kemudian akan menampilkan model terbaik berdasarkan nilai R² tertinggi.
 """)
 
-# Tabel input: sebagai teks agar koma bisa ditangani
+# Tabel input
 default_data = pd.DataFrame({
-    'Waktu': [],
-    'Konsentrasi': []
+    'Waktu': [0, 1, 2, 3, 4],
+    'Konsentrasi': [0.50, 0.40, 0.31, 0.25, 0.20]
 })
 data = st.data_editor(default_data, num_rows="dynamic", use_container_width=True)
 
-# Fungsi konversi string dengan koma ke float
-def parse_comma(series):
-    return series.astype(str).str.replace(',', '.').astype(float)
-
-# Fungsi format hasil angka dengan koma
-def fmt_koma(val, ndigits=4):
-    return str(round(val, ndigits)).replace('.', ',')
-
 if len(data.dropna()) >= 2:
     try:
-        waktu = parse_comma(data['Waktu'])
-        konsentrasi = parse_comma(data['Konsentrasi'])
+        waktu = data['Waktu'].astype(float).to_numpy()
+        konsentrasi = data['Konsentrasi'].astype(float).to_numpy()
 
         selected_orders = st.multiselect(
             "Pilih orde reaksi yang ingin dianalisis:",
@@ -59,52 +51,51 @@ if len(data.dropna()) >= 2:
                 label = "[A]"
             elif order == 1:
                 if np.any(konsentrasi <= 0):
-                    st.warning("⚠️ ln(konsentrasi) tidak bisa dihitung untuk nilai ≤ 0.")
+                    st.warning("⚠️ Tidak dapat menghitung ln(Konsentrasi) karena ada nilai ≤ 0.")
                     continue
                 y_trans = np.log(konsentrasi)
                 label = "ln[A]"
             elif order == 2:
                 if np.any(konsentrasi == 0):
-                    st.warning("⚠️ 1/konsentrasi tidak bisa dihitung untuk nilai = 0.")
+                    st.warning("⚠️ Tidak dapat menghitung 1/Konsentrasi karena ada nilai = 0.")
                     continue
                 y_trans = 1 / konsentrasi
                 label = "1/[A]"
             else:
                 continue
 
-            # Regresi linier
             coeffs = np.polyfit(waktu, y_trans, 1)
             slope, intercept = coeffs
             y_pred = slope * waktu + intercept
             r2 = r2_score(y_trans, y_pred)
 
-            # Cek terbaik
+            # Cek R² terbaik
             if r2 > best_r2:
                 best_r2 = r2
                 best_order = order
-                best_equation = f"{label} = {fmt_koma(intercept)} + {fmt_koma(slope)}·waktu"
+                best_equation = f"{label} = {intercept:.4f} + {slope:.4f}·waktu"
 
-            # Plot
+            # Plot data dan fit
             ax.plot(waktu, y_trans, 'o', color=colors[order], label=f"Orde {order} Data")
-            ax.plot(waktu, y_pred, '-', color=colors[order], label=f"Orde {order} Fit (R² = {round(r2, 4)})")
+            ax.plot(waktu, y_pred, '-', color=colors[order], label=f"Orde {order} Fit (R² = {r2:.4f})")
 
-            # Tampilkan hasil
+            # Tampilkan persamaan
             st.markdown(f"""
             ### Orde {order}
-            Transformasi: `{label} = {fmt_koma(intercept)} + {fmt_koma(slope)}·waktu`  
-            R² = `{fmt_koma(r2)}`
+            Transformasi: `{label} = {intercept:.4f} + {slope:.4f}·waktu`  
+            R² = `{r2:.4f}`
             """)
 
         ax.legend()
         ax.grid(True)
         st.pyplot(fig)
 
-        # Output terbaik
+        # Hasil terbaik
         if best_order is not None:
-            st.success(f"✅ Orde terbaik adalah **Orde {best_order}** dengan R² = `{fmt_koma(best_r2)}`")
+            st.success(f"✅ **Orde terbaik adalah Orde {best_order}** dengan R² = `{best_r2:.4f}`")
             st.markdown(f"**Model terbaik:** `{best_equation}`")
 
     except Exception as e:
-        st.error(f"❌ Terjadi kesalahan: {e}")
+        st.error(f"❌ Terjadi kesalahan saat memproses data: {e}")
 else:
-    st.warning("⚠️ Masukkan setidaknya dua baris data valid.")
+    st.warning("⚠️ Masukkan setidaknya dua pasang data valid.")
