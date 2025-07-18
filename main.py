@@ -6,7 +6,7 @@ from fractions import Fraction
 st.set_page_config(page_title="Penentu Orde Reaksi", layout="wide")
 
 # Sidebar Navigasi
-st.sidebar.title("🧪 Navigasi")
+st.sidebar.title("Navigasi")
 page = st.sidebar.radio("Pilih Halaman", ["Beranda", "Penentuan Orde", "Petunjuk", "Hasil"])
 
 # ================================
