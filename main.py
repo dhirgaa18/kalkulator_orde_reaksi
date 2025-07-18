@@ -197,13 +197,11 @@ elif page == "Petunjuk":
        - [A] konstan untuk cari orde B
     3. Aplikasi akan hitung orde dalam pecahan dan desimal
 
-    st.markdown("### Rumus:")
-st.markdown(r"""
-Gunakan rumus berikut untuk menentukan orde reaksi:
-
-\[
-\frac{v_2}{v_1} = \left( \frac{[A]_2}{[A]_1} \right)^x \left( \frac{[B]_2}{[B]_1} \right)^y
-\]
+### Rumus:
+    $$
+    \frac{v_2}{v_1} = \left( \frac{[A]_2}{[A]_1} \right)^x \left( \frac{[B]_2}{[B]_1} \right)^y
+    $$
+    """)
 """)
 
 
