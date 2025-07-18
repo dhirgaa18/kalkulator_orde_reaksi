@@ -32,14 +32,14 @@ elif page == "Penentuan Orde":
 
     # Data default
     data_default = pd.DataFrame({
-        '[A] (M)': [0.4, 0.8, 0.8],
-        '[B] (M)': [0.2, 0.2, 0.8],
-        'Laju (v)': [10, 20, 40],
+        '[A] (M)': [],
+        '[B] (M)': [],
+        'Laju (v)': [],
     })
 
     data_default.insert(0, "No", range(1, len(data_default) + 1))
 
-    st.header("⿡ Masukkan Data Percobaan")
+    st.header("Masukkan Data Percobaan")
     data = st.data_editor(data_default, num_rows="dynamic", use_container_width=True, key="data_input")
 
     if len(data) < 2:
