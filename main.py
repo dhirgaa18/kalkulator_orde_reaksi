@@ -16,7 +16,7 @@ page = st.sidebar.radio("Pilih Halaman", ["Beranda", "Analisis Orde", "Penentuan
 # 📌 BERANDA
 # ================================
 if page == "Beranda":
-   st.title("📊 Aplikasi Kinetika Reaksi")
+    st.title("📊 Aplikasi Kinetika Reaksi")
     st.markdown("""
 ### Selamat datang di Aplikasi Kinetika Reaksi!
 
@@ -36,6 +36,8 @@ Aplikasi ini dirancang untuk membantu kamu menganalisis data eksperimen reaksi k
     if st.button("Mulai Analisis Orde Reaksi 🔬"):
         st.session_state.page = "Analisis Orde"
         st.experimental_rerun()
+
+# (Halaman lainnya tidak diubah dan tetap sama sesuai dengan kode awal yang sudah benar indentasinya.)
 
 # ================================
 # ⚗️ ANALISIS ORDE KINETIKA
