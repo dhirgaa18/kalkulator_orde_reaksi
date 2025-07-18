@@ -211,10 +211,10 @@ elif page == "Petunjuk":
 elif page == "Hasil":
     st.title("📈 Hasil & Analisis")
     st.markdown("""
-    Di halaman ini kamu bisa:
-    - Menampilkan grafik (belum tersedia)
-    - Menyimpan hasil
-    - Menganalisis tren perubahan laju reaksi
+        Di halaman ini kamu bisa:
+        - Menampilkan grafik (belum tersedia)
+        - Menyimpan hasil
+        - Menganalisis tren perubahan laju reaksi
 
     🚧 Fitur tambahan bisa ditambahkan nanti."""
     )
