@@ -31,7 +31,7 @@ Aplikasi ini dirancang untuk membantu kamu menganalisis data eksperimen reaksi k
     st.success("👩‍🔬 Siap Menghitung Orde Reaksi!")
     st.info("📂 Gunakan menu navigasi di sebelah kiri untuk mulai.")
 
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Rate_law_order.svg/800px-Rate_law_order.svg.png", caption="Ilustrasi grafik reaksi", se_container_width=True)
+    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Rate_law_order.svg/800px-Rate_law_order.svg.png", caption="Ilustrasi grafik reaksi", use_container_width=True)
 
     if st.button("Mulai Analisis Orde Reaksi 🔬"):
         st.session_state.page = "Analisis Orde"
