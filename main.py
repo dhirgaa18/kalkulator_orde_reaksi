@@ -188,13 +188,15 @@ elif page == "Petunjuk":
        - Di mana [A] konstan → untuk menentukan orde terhadap B
     3. Aplikasi akan menghitung orde reaksi dalam bentuk pecahan dan desimal.
 
-    ### 🧪 Rumus Penentuan Orde Reaksi
-st.markdown("Jika **[B] tetap**, maka orde terhadap A dihitung dengan:")
-st.latex(r"\frac{v_2}{v_1} = \left( \frac{[A]_2}{[A]_1} \right)^x")
-st.markdown("Maka:")
-st.latex(r"x = \frac{\log(v_2/v_1)}{\log([A]_2/[A]_1)}")
+    st.markdown("### 📘 Teori Perhitungan Orde Reaksi")
 
-st.markdown("Jika **[A] tetap**, maka orde terhadap B dihitung dengan:")
-st.latex(r"\frac{v_2}{v_1} = \left( \frac{[B]_2}{[B]_1} \right)^y")
-st.markdown("Maka:")
-st.latex(r"y = \frac{\log(v_2/v_1)}{\log([B]_2/[B]_1)}")
+    st.markdown("Jika **[B] tetap**, maka orde terhadap A dihitung dengan:")
+    st.latex(r"\frac{v_2}{v_1} = \left( \frac{[A]_2}{[A]_1} \right)^x")
+    st.markdown("Maka:")
+    st.latex(r"x = \frac{\log(v_2/v_1)}{\log([A]_2/[A]_1)}")
+
+    st.markdown("Jika **[A] tetap**, maka orde terhadap B dihitung dengan:")
+    st.latex(r"\frac{v_2}{v_1} = \left( \frac{[B]_2}{[B]_1} \right)^y")
+    st.markdown("Maka:")
+    st.latex(r"y = \frac{\log(v_2/v_1)}{\log([B]_2/[B]_1)}")
+
