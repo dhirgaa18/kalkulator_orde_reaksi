@@ -216,6 +216,6 @@ elif page == "Hasil":
     - Menyimpan hasil
     - Menganalisis tren perubahan laju reaksi
 
-    🚧 Fitur tambahan bisa ditambahkan nanti.
-    """)
+    🚧 Fitur tambahan bisa ditambahkan nanti."""
+    )
 
