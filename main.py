@@ -4,6 +4,23 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import r2_score
 
+st.set_page_config(page_title="Multi Halaman", layout="wide")
+
+st.sidebar.title("📂 Navigasi")
+page = st.sidebar.selectbox("Pilih Halaman", ["Beranda", "Analisis Orde", "Grafik Regresi"])
+
+if page == "Beranda":
+    st.title("📊 Aplikasi Kinetika Reaksi")
+    st.markdown("Selamat datang! Silakan pilih menu di sidebar.")
+    
+elif page == "Analisis Orde":
+    st.title("⚗️ Analisis Orde Reaksi")
+    # (paste kode analisis orde dari sebelumnya di sini)
+
+elif page == "Grafik Regresi":
+    st.title("📈 Grafik Regresi dari Tabel")
+    # (paste kode regresi tabel dari sebelumnya di sini)
+
 st.set_page_config(page_title="Kinetika Reaksi", layout="centered")
 st.title("🔬 Analisis Orde Reaksi Berdasarkan Data Waktu dan Konsentrasi")
 
