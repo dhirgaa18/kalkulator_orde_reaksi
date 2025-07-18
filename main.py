@@ -97,7 +97,7 @@ elif page == "Input Data dan Grafik":
 # 🔍 PENENTU ORDE REAKSI
 # ================================
 elif page == "Penentu Orde Reaksi":
-    st.title("🧪 Penentuan Orde Reaksi - Step by Step Wizard")
+    st.title("Penentuan Orde Reaksi")
 
     data_default = pd.DataFrame({
         '[A] (M)': [0.4, 0.8, 0.8],
