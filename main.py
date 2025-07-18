@@ -16,10 +16,26 @@ page = st.sidebar.radio("Pilih Halaman", ["Beranda", "Analisis Orde", "Penentuan
 # 📌 BERANDA
 # ================================
 if page == "Beranda":
-    st.title("📊 Aplikasi Kinetika Reaksi")
+   st.title("📊 Aplikasi Kinetika Reaksi")
     st.markdown("""
-    Selamat datang! Silakan pilih menu di sidebar.
-    """)
+### Selamat datang di Aplikasi Kinetika Reaksi!
+
+Aplikasi ini dirancang untuk membantu kamu menganalisis data eksperimen reaksi kimia secara cepat dan akurat. Kamu bisa:
+
+- 📉 Menganalisis orde reaksi berdasarkan data
+- 🧪 Menghitung orde berdasarkan percobaan
+- 📈 Menampilkan grafik regresi transformasi konsentrasi
+- 📘 Membaca panduan interaktif
+
+""")
+    st.success("👩‍🔬 Siap melakukan eksperimen virtual!")
+    st.info("📂 Gunakan menu navigasi di sebelah kiri untuk mulai.")
+
+    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Rate_law_order.svg/800px-Rate_law_order.svg.png", caption="Ilustrasi grafik reaksi", use_column_width=True)
+
+    if st.button("Mulai Analisis Orde Reaksi 🔬"):
+        st.session_state.page = "Analisis Orde"
+        st.experimental_rerun()
 
 # ================================
 # ⚗️ ANALISIS ORDE KINETIKA
