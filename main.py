@@ -1,150 +1,116 @@
 import streamlit as st
+import numpy as np
 import pandas as pd
-import math
-from fractions import Fraction
+import matplotlib.pyplot as plt
+from sklearn.metrics import r2_score
 
-# Konfigurasi halaman
-st.set_page_config(page_title="Penentu Orde Reaksi", layout="wide")
-st.title("🧪 Penentuan Orde Reaksi - Step by Step Wizard")
+# Konfigurasi halaman utama
+st.set_page_config(page_title="Kinetika Reaksi", layout="wide")
 
-# Fungsi bantu untuk format orde sebagai pecahan + desimal
-def format_orde_mixed(value):
-    if value == int(value):
-        return str(int(value))
-    else:
-        frac = Fraction(value).limit_denominator(10)
-        return f"\\frac{{{frac.numerator}}}{{{frac.denominator}}} \\; (={round(value, 2)})"
+# Navigasi multi-halaman
+st.sidebar.title("📂 Navigasi")
+page = st.sidebar.selectbox("Pilih Halaman", ["Beranda", "Analisis Orde", "Grafik Regresi"])
 
-# DATA DEFAULT
-data_default = pd.DataFrame({
-    '[A] (M)': [0.4, 0.8, 0.8],
-    '[B] (M)': [0.2, 0.2, 0.8],
-    'Laju (v)': [10, 20, 40],
-})
-data_default.insert(0, "No", range(1, len(data_default) + 1))
+if page == "Beranda":
+    st.title("📊 Aplikasi Kinetika Reaksi")
+    st.markdown("Selamat datang! Silakan pilih menu di sidebar.")
 
-# LANGKAH 1: Input Data
-st.header("⿡ Masukkan Data Percobaan")
-st.write("Silakan masukkan konsentrasi reaktan dan laju reaksi dari beberapa eksperimen.")
-
-data = st.data_editor(data_default, num_rows="dynamic", use_container_width=True, key="data_input")
-
-if len(data) < 2:
-    st.warning("Masukkan minimal 2 baris data untuk melanjutkan.")
-    st.stop()
-
-row_numbers = data["No"].tolist()
-
-# LANGKAH 2: Orde terhadap A
-st.header("⿢ Pilih Baris untuk Menentukan Orde terhadap A")
-pair_A = st.multiselect("Pilih dua nomor baris (dengan B yang sama):", row_numbers, default=[1, 2])
-x = None
-
-if len(pair_A) == 2:
-    idx1 = data.index[data["No"] == pair_A[0]][0]
-    idx2 = data.index[data["No"] == pair_A[1]][0]
-    d1, d2 = data.loc[idx1], data.loc[idx2]
-
-    if d1['[B] (M)'] != d2['[B] (M)']:
-        st.error("❌ Nilai B harus sama untuk menentukan orde terhadap A.")
-    else:
-        st.header("⿣ Rumus Lengkap Orde A")
-        st.latex(r"\frac{v_2}{v_1} = \left( \frac{[A]_2}{[A]_1} \right)^x \left( \frac{[B]_2}{[B]_1} \right)^y")
-
-        A1, A2 = d1['[A] (M)'], d2['[A] (M)']
-        B1, B2 = d1['[B] (M)'], d2['[B] (M)']
-        v1, v2 = d1['Laju (v)'], d2['Laju (v)']
-
-        ratio_v = v2 / v1
-        ratio_A = A2 / A1
-
-        st.header("⿤ Substitusi Nilai")
-        st.latex(
-            rf"\frac{{{v2}}}{{{v1}}} = "
-            rf"\left( \frac{{{A2}}}{{{A1}}} \right)^x "
-            rf"\cancel{{\left( \frac{{{B2}}}{{{B1}}} \right)^y}}"
-        )
-
-        try:
-            x_value = math.log(ratio_v) / math.log(ratio_A)
-            x = round(x_value, 6)
-            st.latex(rf"x = {format_orde_mixed(x)}")
-        except:
-            st.error("⚠ Terjadi kesalahan saat menghitung orde terhadap A.")
-
-# LANGKAH 3: Orde terhadap B
-st.divider()
-st.header("⿧ Pilih Baris untuk Menentukan Orde terhadap B")
-pair_B = st.multiselect("Pilih dua nomor baris (dengan A yang sama):", row_numbers, default=[1, 3])
-y = None
-
-if len(pair_B) == 2:
-    idx1 = data.index[data["No"] == pair_B[0]][0]
-    idx2 = data.index[data["No"] == pair_B[1]][0]
-    d1, d2 = data.loc[idx1], data.loc[idx2]
-
-    if d1['[A] (M)'] != d2['[A] (M)']:
-        st.error("❌ Nilai A harus sama untuk menentukan orde terhadap B.")
-    else:
-        st.header("⿨ Rumus Lengkap Orde B")
-        st.latex(r"\frac{v_2}{v_1} = \left( \frac{[A]_2}{[A]_1} \right)^x \left( \frac{[B]_2}{[B]_1} \right)^y")
-
-        A1, A2 = d1['[A] (M)'], d2['[A] (M)']
-        B1, B2 = d1['[B] (M)'], d2['[B] (M)']
-        v1, v2 = d1['Laju (v)'], d2['Laju (v)']
-
-        ratio_v = v2 / v1
-        ratio_B = B2 / B1
-
-        st.header("⿩ Substitusi Nilai")
-        st.latex(
-            rf"\frac{{{v2}}}{{{v1}}} = "
-            rf"\cancel{{\left( \frac{{{A2}}}{{{A1}}} \right)^x}} "
-            rf"\left( \frac{{{B2}}}{{{B1}}} \right)^y"
-        )
-
-        try:
-            y_value = math.log(ratio_v) / math.log(ratio_B)
-            y = round(y_value, 6)
-            st.latex(rf"y = {format_orde_mixed(y)}")
-        except:
-            st.error("⚠ Terjadi kesalahan saat menghitung orde terhadap B.")
-
-# LANGKAH 4: Total Orde
-if x is not None and y is not None:
-    st.divider()
-    st.header("📊 Orde Total Reaksi")
-    total_order = x + y
-
-    st.latex(
-        rf"\text{{Orde total reaksi adalah }} x + y = {format_orde_mixed(x)} + {format_orde_mixed(y)} = {format_orde_mixed(total_order)}"
-    )
+elif page == "Analisis Orde":
+    st.title("🔬 Analisis Orde Reaksi Berdasarkan Data Waktu dan Konsentrasi")
 
     st.markdown("""
-    <br>
-    <hr>
-    <b>📘 Penjelasan Rumus:</b><br>
-    Jika <strong>[B]</strong> tetap, maka orde terhadap <strong>A</strong> dihitung dengan:<br><br>
+    Masukkan data waktu dan konsentrasi. Program ini akan menghitung regresi linier berdasarkan model kinetika reaksi:
 
-    $$
-    \\frac{v_2}{v_1} = \\left( \\frac{[A]_2}{[A]_1} \\right)^x
-    $$
+    - **Orde 0** → [A] vs waktu  
+    - **Orde 1** → ln[A] vs waktu  
+    - **Orde 2** → 1/[A] vs waktu
 
-    Maka:
+    Kemudian akan menampilkan model terbaik berdasarkan nilai R² tertinggi.
+    """)
 
-    $$
-    x = \\frac{\\log(v_2/v_1)}{\\log([A]_2/[A]_1)}
-    $$
+    # Tabel input
+    default_data = pd.DataFrame({
+        'Waktu': [],
+        'Konsentrasi': []
+    })
+    data = st.data_editor(default_data, num_rows="dynamic", use_container_width=True)
 
-    Jika <strong>[A]</strong> tetap, maka orde terhadap <strong>B</strong> dihitung dengan:<br><br>
+    if len(data.dropna()) >= 2:
+        try:
+            waktu = data['Waktu'].astype(float).to_numpy()
+            konsentrasi = data['Konsentrasi'].astype(float).to_numpy()
 
-    $$
-    \\frac{v_2}{v_1} = \\left( \\frac{[B]_2}{[B]_1} \\right)^y
-    $$
+            selected_orders = st.multiselect(
+                "Pilih orde reaksi yang ingin dianalisis:",
+                options=[0, 1, 2],
+                default=[0, 1, 2]
+            )
 
-    Maka:
+            fig, ax = plt.subplots(figsize=(10, 6))
+            ax.set_title("Regresi Kinetika Reaksi")
+            ax.set_xlabel("Waktu")
+            ax.set_ylabel("Transformasi Konsentrasi")
 
-    $$
-    y = \\frac{\\log(v_2/v_1)}{\\log([B]_2/[B]_1)}
-    $$
-    """, unsafe_allow_html=True)
+            colors = {0: "blue", 1: "green", 2: "red"}
+            best_r2 = -np.inf
+            best_order = None
+            best_equation = ""
+
+            for order in selected_orders:
+                if order == 0:
+                    y_trans = konsentrasi
+                    label = "[A]"
+                elif order == 1:
+                    if np.any(konsentrasi <= 0):
+                        st.warning("⚠️ Tidak dapat menghitung ln(Konsentrasi) karena ada nilai ≤ 0.")
+                        continue
+                    y_trans = np.log(konsentrasi)
+                    label = "ln[A]"
+                elif order == 2:
+                    if np.any(konsentrasi == 0):
+                        st.warning("⚠️ Tidak dapat menghitung 1/Konsentrasi karena ada nilai = 0.")
+                        continue
+                    y_trans = 1 / konsentrasi
+                    label = "1/[A]"
+                else:
+                    continue
+
+                coeffs = np.polyfit(waktu, y_trans, 1)
+                slope, intercept = coeffs
+                y_pred = slope * waktu + intercept
+                r2 = r2_score(y_trans, y_pred)
+
+                # Cek R² terbaik
+                if r2 > best_r2:
+                    best_r2 = r2
+                    best_order = order
+                    best_equation = f"{label} = {intercept:.4f} + {slope:.4f}·waktu"
+
+                # Plot data dan fit
+                ax.plot(waktu, y_trans, 'o', color=colors[order], label=f"Orde {order} Data")
+                ax.plot(waktu, y_pred, '-', color=colors[order], label=f"Orde {order} Fit (R² = {r2:.4f})")
+
+                # Tampilkan persamaan
+                st.markdown(f"""
+                ### Orde {order}
+                Transformasi: `{label} = {intercept:.4f} + {slope:.4f}·waktu`  
+                R² = `{r2:.4f}`
+                """)
+
+            ax.legend()
+            ax.grid(True)
+            st.pyplot(fig)
+
+            # Hasil terbaik
+            if best_order is not None:
+                st.success(f"✅ **Orde terbaik adalah Orde {best_order}** dengan R² = `{best_r2:.4f}`")
+                st.markdown(f"**Model terbaik:** `{best_equation}`")
+
+        except Exception as e:
+            st.error(f"❌ Terjadi kesalahan saat memproses data: {e}")
+    else:
+        st.warning("⚠️ Masukkan setidaknya dua pasang data valid.")
+
+elif page == "Grafik Regresi":
+    st.title("📈 Grafik Regresi dari Tabel")
+    st.info("Fitur ini sedang dalam pengembangan.")
