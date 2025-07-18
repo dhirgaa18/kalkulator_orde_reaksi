@@ -30,11 +30,6 @@ Aplikasi ini dirancang untuk membantu kamu menganalisis data eksperimen reaksi k
 """)
     st.success("👩‍🔬 Siap Menghitung Orde Reaksi!")
     st.info("📂 Gunakan menu navigasi di sebelah kiri untuk mulai.")
-
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Rate_law_order.svg/800px-Rate_law_order.svg.png", caption="Ilustrasi grafik reaksi", use_container_width=True)x
-
-# (Halaman lainnya tidak diubah dan tetap sama sesuai dengan kode awal yang sudah benar indentasinya.)
-
 # ================================
 # ⚗️ ANALISIS ORDE KINETIKA
 # ================================
