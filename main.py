@@ -3,10 +3,11 @@ import pandas as pd
 import math
 from fractions import Fraction
 
+# Konfigurasi halaman
 st.set_page_config(page_title="Penentu Orde Reaksi", layout="wide")
 st.title("🧪 Penentuan Orde Reaksi - Step by Step Wizard")
 
-# Fungsi: Format hasil sebagai pecahan + desimal
+# Fungsi bantu untuk format orde sebagai pecahan + desimal
 def format_orde_mixed(value):
     if value == int(value):
         return str(int(value))
@@ -14,14 +15,15 @@ def format_orde_mixed(value):
         frac = Fraction(value).limit_denominator(10)
         return f"\\frac{{{frac.numerator}}}{{{frac.denominator}}} \\; (={round(value, 2)})"
 
-# Langkah 1: Input Data
+# DATA DEFAULT
 data_default = pd.DataFrame({
     '[A] (M)': [0.4, 0.8, 0.8],
     '[B] (M)': [0.2, 0.2, 0.8],
     'Laju (v)': [10, 20, 40],
 })
-
 data_default.insert(0, "No", range(1, len(data_default) + 1))
+
+# LANGKAH 1: Input Data
 st.header("⿡ Masukkan Data Percobaan")
 st.write("Silakan masukkan konsentrasi reaktan dan laju reaksi dari beberapa eksperimen.")
 
@@ -33,7 +35,7 @@ if len(data) < 2:
 
 row_numbers = data["No"].tolist()
 
-# Orde terhadap A
+# LANGKAH 2: Orde terhadap A
 st.header("⿢ Pilih Baris untuk Menentukan Orde terhadap A")
 pair_A = st.multiselect("Pilih dua nomor baris (dengan B yang sama):", row_numbers, default=[1, 2])
 x = None
@@ -53,13 +55,13 @@ if len(pair_A) == 2:
         B1, B2 = d1['[B] (M)'], d2['[B] (M)']
         v1, v2 = d1['Laju (v)'], d2['Laju (v)']
 
-        ratio_v = max(v1, v2) / min(v1, v2)
-        ratio_A = max(A1, A2) / min(A1, A2)
+        ratio_v = v2 / v1
+        ratio_A = A2 / A1
 
         st.header("⿤ Substitusi Nilai")
         st.latex(
-            rf"\frac{{{max(v1, v2)}}}{{{min(v1, v2)}}} = "
-            rf"\left( \frac{{{max(A1, A2)}}}{{{min(A1, A2)}}} \right)^x "
+            rf"\frac{{{v2}}}{{{v1}}} = "
+            rf"\left( \frac{{{A2}}}{{{A1}}} \right)^x "
             rf"\cancel{{\left( \frac{{{B2}}}{{{B1}}} \right)^y}}"
         )
 
@@ -70,7 +72,7 @@ if len(pair_A) == 2:
         except:
             st.error("⚠ Terjadi kesalahan saat menghitung orde terhadap A.")
 
-# Orde terhadap B
+# LANGKAH 3: Orde terhadap B
 st.divider()
 st.header("⿧ Pilih Baris untuk Menentukan Orde terhadap B")
 pair_B = st.multiselect("Pilih dua nomor baris (dengan A yang sama):", row_numbers, default=[1, 3])
@@ -91,14 +93,14 @@ if len(pair_B) == 2:
         B1, B2 = d1['[B] (M)'], d2['[B] (M)']
         v1, v2 = d1['Laju (v)'], d2['Laju (v)']
 
-        ratio_v = max(v1, v2) / min(v1, v2)
-        ratio_B = max(B1, B2) / min(B1, B2)
+        ratio_v = v2 / v1
+        ratio_B = B2 / B1
 
         st.header("⿩ Substitusi Nilai")
         st.latex(
-            rf"\frac{{{max(v1, v2)}}}{{{min(v1, v2)}}} = "
+            rf"\frac{{{v2}}}{{{v1}}} = "
             rf"\cancel{{\left( \frac{{{A2}}}{{{A1}}} \right)^x}} "
-            rf"\left( \frac{{{max(B1, B2)}}}{{{min(B1, B2)}}} \right)^y"
+            rf"\left( \frac{{{B2}}}{{{B1}}} \right)^y"
         )
 
         try:
@@ -108,10 +110,41 @@ if len(pair_B) == 2:
         except:
             st.error("⚠ Terjadi kesalahan saat menghitung orde terhadap B.")
 
-# Orde total
+# LANGKAH 4: Total Orde
 if x is not None and y is not None:
     st.divider()
     st.header("📊 Orde Total Reaksi")
+    total_order = x + y
+
     st.latex(
-        rf"\text{{Orde total reaksi adalah }} x + y = {format_orde_mixed(x)} + {format_orde_mixed(y)} = {format_orde_mixed(x + y)}"
-    )
+        rf"\text{{Orde total reaksi adalah }} x + y = {format_orde_mixed(x)} + {format_orde_mixed(y)} = {format_orde_mixed(total_order)}"
+    )
+
+    st.markdown("""
+    <br>
+    <hr>
+    <b>📘 Penjelasan Rumus:</b><br>
+    Jika <strong>[B]</strong> tetap, maka orde terhadap <strong>A</strong> dihitung dengan:<br><br>
+
+    $$
+    \\frac{v_2}{v_1} = \\left( \\frac{[A]_2}{[A]_1} \\right)^x
+    $$
+
+    Maka:
+
+    $$
+    x = \\frac{\\log(v_2/v_1)}{\\log([A]_2/[A]_1)}
+    $$
+
+    Jika <strong>[A]</strong> tetap, maka orde terhadap <strong>B</strong> dihitung dengan:<br><br>
+
+    $$
+    \\frac{v_2}{v_1} = \\left( \\frac{[B]_2}{[B]_1} \\right)^y
+    $$
+
+    Maka:
+
+    $$
+    y = \\frac{\\log(v_2/v_1)}{\\log([B]_2/[B]_1)}
+    $$
+    """, unsafe_allow_html=True)
