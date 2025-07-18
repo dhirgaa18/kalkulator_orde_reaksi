@@ -10,7 +10,7 @@ st.set_page_config(page_title="Kinetika Reaksi", layout="wide")
 
 # Sidebar Navigasi
 st.sidebar.title("📂 Navigasi")
-page = st.sidebar.radio("Pilih Halaman", ["Beranda", "Analisis Orde", "Penentuan Orde", "Grafik Regresi", "Petunjuk", "Hasil"])
+page = st.sidebar.radio("Pilih Halaman", ["Beranda", "Analisis Orde", "Penentuan Orde", "Petunjuk"])
 
 # ================================
 # 📌 BERANDA
