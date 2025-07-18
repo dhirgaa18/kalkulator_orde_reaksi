@@ -20,7 +20,7 @@ if page == "Beranda":
 
     Gunakan menu di sidebar untuk:
     - 📊 Menentukan Orde Reaksi
-    - 📘 Melihat Petunjuk
+    - 📘 Melihat Petunjuk Penggunaan
     - 📈 Lihat Hasil & Analisis
     """)
 
