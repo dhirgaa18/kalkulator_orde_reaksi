@@ -256,41 +256,43 @@ elif page == "Hasil":
 
 elif page == "Tentang":
     st.title("📘 Tentang Kinetika Reaksi")
-      tab1, tab2, tab3 = st.tabs(["Tentang Website", "Dasar Teori", "Kontak"])
+    
+    tab1, tab2, tab3 = st.tabs(["Tentang Website", "Dasar Teori", "Kontak"])
 
     with tab1:
-            st.subheader("Tentang Website")
-            st.markdown("""
-    Aplikasi ini dikembangkan untuk membantu mahasiswa dan pelajar dalam memahami **kinetika reaksi** melalui pendekatan data eksperimen.  
-    Fitur yang tersedia antara lain:
-    - Analisis regresi untuk menentukan orde reaksi
-    - Penentuan orde reaksi berdasarkan data laju
-    - Perhitungan waktu paruh dan waktu kadaluarsa
-    - Visualisasi grafik transformasi konsentrasi
-    
-    Website ini dibuat dengan **Streamlit**, menggunakan pustaka Python seperti `numpy`, `pandas`, `matplotlib`, dan `scikit-learn`.
-    """)
+        st.subheader("Tentang Website")
+        st.markdown("""
+Aplikasi ini dikembangkan untuk membantu mahasiswa dan pelajar dalam memahami **kinetika reaksi** melalui pendekatan data eksperimen.  
+Fitur yang tersedia antara lain:
+- Analisis regresi untuk menentukan orde reaksi
+- Penentuan orde reaksi berdasarkan data laju
+- Perhitungan waktu paruh dan waktu kadaluarsa
+- Visualisasi grafik transformasi konsentrasi
+
+Website ini dibuat dengan **Streamlit**, menggunakan pustaka Python seperti `numpy`, `pandas`, `matplotlib`, dan `scikit-learn`.
+""")
 
     with tab2:
         st.header("🔬 Dasar Teori Kinetika Reaksi")
-        st.markdown("""
-Kinetika reaksi adalah cabang ilmu kimia yang mempelajari suatu reaksi kimia. Kinetika reaksi menerangkan dua hal yaitu mekanisme reaksi dan laju reaksi. Pengertian mekanisme reaksi adalah dipakai untuk menerangkan langkah-langkah dimana suatu reaktan menjadi produk. Laju reaksi adalah perubahan konsentrasi pereaksi ataupun suatu produk dalam suatu satuan waktu
+        st.markdown(r"""
+Kinetika reaksi adalah cabang ilmu kimia yang mempelajari suatu reaksi kimia. Kinetika reaksi menerangkan dua hal yaitu mekanisme reaksi dan laju reaksi. Pengertian mekanisme reaksi adalah dipakai untuk menerangkan langkah-langkah dimana suatu reaktan menjadi produk. Laju reaksi adalah perubahan konsentrasi pereaksi ataupun suatu produk dalam suatu satuan waktu.
 
-Laju menyatakan seberapa cepat atau seberapa lambat suatu proses berlangsung. Laju menyatakan besarnya perubahan yang terjadi dalam satu satuan waktu. Reaksi kimia adalah proses perubahan zat pereaksi menjadi produk. Seiring dengan bertambahnya waktu reaksi, maka jumlah zat pereaksi semakin sedikit, sedangkan produk semakin banyak. Laju reaksi dinyatakan sebagai laju berkurangnya pereaksi atau laju terbentuknya produk. Kecepatan reaksi kimia ditentukan oleh orde reaksi, yaitu jumlah dari eksponen konsentrasi pada persamaan kecepatan reaksi. Orde suatu reaksi ialah jumlah semua eksponen dari konsentrasi dalam persamaan laju. Orde reaksi juga menyatakan besarnya pengaruh konsentrasi reaktan (pereaksi) terhadap laju reaksi. Jika laju suatu reaksi berbanding lurus dengan pangkat satu konsentrasi dari hanya satu pereaksi
+Laju menyatakan seberapa cepat atau seberapa lambat suatu proses berlangsung. Laju menyatakan besarnya perubahan yang terjadi dalam satu satuan waktu. Reaksi kimia adalah proses perubahan zat pereaksi menjadi produk. Seiring dengan bertambahnya waktu reaksi, maka jumlah zat pereaksi semakin sedikit, sedangkan produk semakin banyak. Laju reaksi dinyatakan sebagai laju berkurangnya pereaksi atau laju terbentuknya produk. Kecepatan reaksi kimia ditentukan oleh orde reaksi, yaitu jumlah dari eksponen konsentrasi pada persamaan kecepatan reaksi. Orde suatu reaksi ialah jumlah semua eksponen dari konsentrasi dalam persamaan laju. Orde reaksi juga menyatakan besarnya pengaruh konsentrasi reaktan (pereaksi) terhadap laju reaksi.
 
 Dengan persamaan:
+
 $$
 v = k[A]^x[B]^y
 $$
 
 Di mana:
-- \( v \) = laju reaksi
-- \( k \) = konstanta laju
-- \( x, y \) = orde reaksi terhadap A dan B
-- \( [A], [B] \) = konsentrasi reaktan
+- \\( v \\) = laju reaksi  
+- \\( k \\) = konstanta laju  
+- \\( x, y \\) = orde reaksi terhadap A dan B  
+- \\( [A], [B] \\) = konsentrasi reaktan  
 """)
 
- with tab3:
+    with tab3:
         st.subheader("Kontak Pengembang")
         st.markdown("""
 Jika ada pertanyaan, kritik, atau saran silakan hubungi:
