@@ -253,3 +253,46 @@ elif page == "Hasil":
 
 🚧 Fitur tambahan bisa ditambahkan nanti.
 """)
+
+elif page == "Tentang":
+    st.title("📘 Tentang Teori Kinetika Reaksi")
+
+    st.markdown("""
+### Apa itu Kinetika Reaksi?
+Kinetika reaksi adalah studi tentang **laju reaksi kimia** dan bagaimana laju tersebut dipengaruhi oleh konsentrasi pereaksi, suhu, dan faktor lainnya.
+
+### Orde Reaksi
+Orde reaksi menunjukkan bagaimana laju reaksi bergantung pada konsentrasi pereaksi:
+- **Orde 0:** laju tidak bergantung pada konsentrasi.
+- **Orde 1:** laju sebanding dengan konsentrasi.
+- **Orde 2:** laju sebanding dengan kuadrat konsentrasi.
+
+### Transformasi Data
+Untuk menentukan orde reaksi, data konsentrasi [A] dan waktu dianalisis dengan:
+- Orde 0 → grafik [A] vs waktu (linier)
+- Orde 1 → grafik ln[A] vs waktu (linier)
+- Orde 2 → grafik 1/[A] vs waktu (linier)
+
+### Konstanta Laju Reaksi (k)
+Diperoleh dari **kemiringan (slope)** garis regresi pada grafik transformasi terbaik.
+
+### Waktu Paruh (t₁/₂)
+Waktu yang dibutuhkan agar konsentrasi menjadi setengah:
+- Orde 0: \( t_{1/2} = \frac{[A]_0}{2k} \)
+- Orde 1: \( t_{1/2} = \frac{\ln 2}{k} \)
+- Orde 2: \( t_{1/2} = \frac{1}{k[A]_0} \)
+
+### Waktu Kadaluarsa (t₉₀)
+Waktu agar 90% dari pereaksi habis:
+- Orde 0: \( t_{90} = \frac{0.1[A]_0}{k} \)
+- Orde 1: \( t_{90} = \frac{0.105}{k} \)
+- Orde 2: \( t_{90} = \frac{1}{9k[A]_0} \)
+
+### Penentuan Orde dari Data Percobaan
+Dengan membandingkan laju reaksi dari dua percobaan:
+\[
+\frac{v_2}{v_1} = \left( \frac{[A]_2}{[A]_1} \right)^x \left( \frac{[B]_2}{[B]_1} \right)^y
+\]
+
+Nilai \( x \) dan \( y \) adalah orde reaksi terhadap A dan B.
+""")
