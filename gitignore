@@ -1,0 +1,18 @@
+
+# Abaikan file JSON kredensial Google
+service-account-key.json
+kritikdansaran-*.json
+
+# Abaikan file konfigurasi Streamlit
+.streamlit/
+
+# Abaikan file cache dan log
+__pycache__/
+*.pyc
+*.log
+
+# Abaikan file editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
