@@ -297,9 +297,8 @@ Di mana:
         st.markdown("""
 Jika ada pertanyaan, kritik, atau saran silakan hubungi:
 
-📧 Email: `developer@example.com`  
-🐙 GitHub: [github.com/namapengembang](https://github.com/namapengembang)  
-🧪 Dosen Pembimbing: Ibu/Bapak [Nama Dosen]
+📧 Email: `dhirgahaq18@gmail.com`  
+🐙 GitHub: (https://github.com/dhirgaa18)  
 
 Terima kasih telah menggunakan aplikasi ini! 🙌
 """)
