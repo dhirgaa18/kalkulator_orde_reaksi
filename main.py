@@ -257,7 +257,7 @@ elif page == "Hasil":
 elif page == "📘Tentang":
     st.title("📘Tentang Kinetika Reaksi")
     
-    tab1, tab2, tab3 = st.tabs(["Tentang Website", "Dasar Teori", "Kontak"])
+    tab1, tab2, tab3, tab4 = st.tabs(["Tentang Website", "Dasar Teori", "Kontak", "Kritik dan Saran"])
 
     with tab1:
         st.subheader("Tentang Website")
@@ -309,3 +309,16 @@ Jika ada pertanyaan, kritik, atau saran silakan hubungi:
 
 Terima kasih telah menggunakan aplikasi ini! 🙌
 """)
+    with tab4:
+        st.subheader("💬 Kritik & Saran")
+        st.markdown("""
+Kami sangat menghargai masukan dari Anda!
+Silakan tulis kritik dan saran Anda di bawah ini:
+""")
+
+        kritik = st.text_area("Tulis di sini", placeholder="Ketikkan kritik atau saran Anda...", height=150)
+        if st.button("Kirim"): 
+            if kritik.strip():
+                st.success("Terima kasih atas masukannya! 🙏")
+            else:
+                st.warning("Silakan isi terlebih dahulu kritik atau saran Anda.")
