@@ -328,7 +328,7 @@ Terima kasih telah menggunakan aplikasi ini! 🙌
             else:
                 try:
                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                    creds = ServiceAccountCredentials.from_json_keyfile_name("kritikdansaran-4b53109a0788.json", scope)
+                    creds = ServiceAccountCredentials.from_json_keyfile_name("kritikdansaran-ae3375e6c7a1.json", scope)
                     client = gspread.authorize(creds)
 
                     sheet = client.open("KritikSaranWeb").sheet1
