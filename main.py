@@ -298,7 +298,7 @@ Di mana:
 Jika ada pertanyaan, kritik, atau saran silakan hubungi:
 
 📧 Email: `dhirgahaq18@gmail.com`  
-🐙 GitHub: (https://github.com/dhirgaa18)  
+🐙 GitHub: https://github.com/dhirgaa18  
 
 Terima kasih telah menggunakan aplikasi ini! 🙌
 """)
