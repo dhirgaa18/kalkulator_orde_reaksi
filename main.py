@@ -261,7 +261,7 @@ elif page == "Tentang":
     with tab1:
         st.header("🔬 Dasar Teori Kinetika Reaksi")
         st.markdown("""
-Kinetika reaksi mempelajari kecepatan reaksi kimia dan faktor-faktor yang mempengaruhinya. Laju reaksi sering kali bergantung pada konsentrasi reaktan:
+Kinetika reaksi adalah cabang ilmu kimia yang mempelajari suatu reaksi kimia. Kinetika reaksi menerangkan dua hal yaitu mekanisme reaksi dan laju reaksi. Pengertian mekanisme reaksi adalah dipakai untuk menerangkan langkah-langkah dimana suatu reaktan menjadi produk. Laju reaksi adalah perubahan konsentrasi pereaksi ataupun suatu produk dalam suatu satuan waktu
 
 $$
 v = k[A]^x[B]^y
