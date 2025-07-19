@@ -9,7 +9,7 @@ from fractions import Fraction
 st.set_page_config(page_title="Kinetika Reaksi", layout="wide")
 
 # Sidebar Navigasi
-st.sidebar.title("\U0001F4C2 Navigasi")
+st.sidebar.title("📂 Navigasi")
 page = st.sidebar.radio("Pilih Halaman", ["Beranda", "Analisis Orde", "Penentuan Orde", "Petunjuk"])
 
 # ================================
@@ -50,6 +50,9 @@ elif page == "Analisis Orde":
     default_data = pd.DataFrame({'Waktu': [], 'Konsentrasi': []})
     data = st.data_editor(default_data, num_rows="dynamic", use_container_width=True)
 
+    slope = None
+    best_order = None
+
     if len(data.dropna()) >= 2:
         try:
             waktu = data['Waktu'].astype(float).to_numpy()
@@ -64,9 +67,7 @@ elif page == "Analisis Orde":
 
             colors = {0: "blue", 1: "green", 2: "red"}
             best_r2 = -np.inf
-            best_order = None
             best_equation = ""
-            best_slope = None
 
             for order in selected_orders:
                 if order == 0:
@@ -88,22 +89,22 @@ elif page == "Analisis Orde":
                     continue
 
                 coeffs = np.polyfit(waktu, y_trans, 1)
-                slope, intercept = coeffs
-                y_pred = slope * waktu + intercept
+                slope_tmp, intercept = coeffs
+                y_pred = slope_tmp * waktu + intercept
                 r2 = r2_score(y_trans, y_pred)
 
                 if r2 > best_r2:
                     best_r2 = r2
                     best_order = order
+                    slope = slope_tmp
                     best_equation = f"{label} = {intercept:.4f} + {slope:.4f}·waktu"
-                    best_slope = slope
 
                 ax.plot(waktu, y_trans, 'o', color=colors[order], label=f"Orde {order} Data")
                 ax.plot(waktu, y_pred, '-', color=colors[order], label=f"Orde {order} Fit (R² = {r2:.4f})")
 
                 st.markdown(f"""
                 ### Orde {order}  
-                Transformasi: `{label} = {intercept:.4f} + {slope:.4f}·waktu`  
+                Transformasi: `{label} = {intercept:.4f} + {slope_tmp:.4f}·waktu`  
                 R² = `{r2:.4f}`
                 """)
 
@@ -115,36 +116,35 @@ elif page == "Analisis Orde":
                 st.success(f"✅ **Orde terbaik adalah Orde {best_order}** dengan R² = `{best_r2:.4f}`")
                 st.markdown(f"**Model terbaik:** `{best_equation}`")
 
-                # Waktu paruh dan kadaluarsa
-                st.subheader("⏳ Waktu Paruh dan Kadaluarsa")
-                st.markdown("Perhitungan ini menggunakan nilai slope regresi sebagai konstanta laju reaksi `k`.")
-
-                A0_input = st.number_input("Konsentrasi awal [A₀] (mol/L)", min_value=0.0, format="%.4f", value=float(konsentrasi[0]))
-                k_input = abs(best_slope)
-                st.markdown(f"**Nilai k (konstanta laju)** diambil dari slope regresi: `k = {k_input:.6f}`")
-
-                if k_input > 0 and (A0_input > 0 or best_order == 1):
-                    if best_order == 0:
-                        t_half = A0_input / (2 * k_input)
-                        t_90 = 0.1 * A0_input / k_input
-                    elif best_order == 1:
-                        t_half = math.log(2) / k_input
-                        t_90 = 0.105 / k_input
-                    elif best_order == 2:
-                        t_half = 1 / (k_input * A0_input)
-                        t_90 = 1 / (9 * k_input * A0_input)
-
-                    st.markdown("### 📉 Hasil Perhitungan:")
-                    st.latex(f"t_{{1/2}} = {t_half:.4f} \\, \\text{{(waktu agar [A] tinggal setengah)}}")
-                    st.latex(f"t_{{90}} = {t_90:.4f} \\, \\text{{(waktu agar [A] tinggal 10\\%)}}")
-                else:
-                    st.warning("Masukkan nilai [A₀] > 0 (tidak boleh nol).")
-
         except Exception as e:
             st.error(f"❌ Terjadi kesalahan saat memproses data: {e}")
     else:
         st.warning("⚠️ Masukkan setidaknya dua pasang data valid.")
 
+    if slope is not None and best_order is not None:
+        st.subheader("⏳ Waktu Paruh dan Kadaluarsa")
+        st.markdown("Perhitungan ini menggunakan nilai slope regresi sebagai konstanta laju reaksi `k`.")
+
+        A0_input = st.number_input("Konsentrasi awal [A₀] (mol/L)", min_value=0.0, format="%.4f", value=0.0 if len(data.dropna()) == 0 else float(data['Konsentrasi'].iloc[0]))
+        k_input = abs(slope)
+        st.markdown(f"**Nilai k (konstanta laju)** diambil dari slope regresi: `k = {k_input:.6f}`")
+
+        if k_input > 0 and (A0_input > 0 or best_order == 1):
+            if best_order == 0:
+                t_half = A0_input / (2 * k_input)
+                t_90 = 0.1 * A0_input / k_input
+            elif best_order == 1:
+                t_half = math.log(2) / k_input
+                t_90 = 0.105 / k_input
+            elif best_order == 2:
+                t_half = 1 / (k_input * A0_input)
+                t_90 = 1 / (9 * k_input * A0_input)
+
+            st.markdown("### 📉 Hasil Perhitungan:")
+            st.latex(f"t_{{1/2}} = {t_half:.4f} \\, \\text{{(waktu agar [A] tinggal setengah)}}")
+            st.latex(f"t_{{90}} = {t_90:.4f} \\, \\text{{(waktu agar [A] tinggal 10\\%)}}")
+        else:
+            st.warning("Masukkan nilai [A₀] > 0 (tidak boleh nol).")
 # ================================
 # 📌 PENENTUAN ORDE REAKSI
 # ================================
