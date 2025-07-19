@@ -5,8 +5,6 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import r2_score
 import math
 from fractions import Fraction
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 
 
@@ -145,85 +143,10 @@ elif page == "📊Analisis Orde":
                 t_90 = 1 / (9 * k_input * A0_input)
 
             st.markdown("### 📉 Hasil Perhitungan:")
-            st.latex(f"t_{{1/2}} = {t_half:.4f} \\, \\text{{(waktu agar [A] tinggal setengah)}}")
-            st.latex(f"t_{{90}} = {t_90:.4f} \\, \\text{{(waktu agar [A] tinggal 10\\%)}}")
+            st.latex(f"t_{{1/2}} = {t_half:.4f} \, \\text{{(waktu agar [A] tinggal setengah)}}")
+            st.latex(f"t_{{90}} = {t_90:.4f} \, \\text{{(waktu agar [A] tinggal 10\\%)}}")
         else:
             st.warning("Masukkan nilai [A₀] > 0 (tidak boleh nol).")
-# ================================
-# 📌 PENENTUAN ORDE REAKSI
-# ================================
-elif page == "🧮Penentuan Orde":
-    st.title("🧮Penentuan Orde Reaksi")
-
-    data_default = pd.DataFrame({
-        '[A] (M)': [],
-        '[B] (M)': [],
-        'Laju (v)': [],
-    })
-    data_default.insert(0, "No", range(1, len(data_default) + 1))
-
-    st.header("Masukkan Data Percobaan")
-    data = st.data_editor(data_default, num_rows="dynamic", use_container_width=True, key="data_input")
-
-    if len(data) < 2:
-        st.warning("Masukkan minimal 2 baris data untuk melanjutkan.")
-        st.stop()
-
-    nomor_baris = data["No"].tolist()
-
-    st.header("⿢ Pilih Data untuk Orde terhadap A")
-    pair_A = st.multiselect("Pilih dua baris dengan [B] sama:", nomor_baris, default=[1, 2], key="select_pair_A")
-
-    x_frac = None
-    if len(pair_A) == 2:
-        idx1, idx2 = sorted(pair_A)
-        d1 = data[data["No"] == idx1].iloc[0]
-        d2 = data[data["No"] == idx2].iloc[0]
-
-        if d1['[B] (M)'] != d2['[B] (M)']:
-            st.error("Nilai [B] harus sama.")
-        else:
-            v1, v2 = d1['Laju (v)'], d2['Laju (v)']
-            A1, A2 = d1['[A] (M)'], d2['[A] (M)']
-            ratio_v = max(v1, v2) / min(v1, v2)
-            ratio_A = max(A1, A2) / min(A1, A2)
-
-            try:
-                x_val = math.log(ratio_v) / math.log(ratio_A)
-                x_frac = Fraction(x_val).limit_denominator()
-                st.success(f"Orde terhadap A = {x_frac} (≈ {x_val:.4f})")
-            except Exception as e:
-                st.error(f"Kesalahan: {e}")
-
-    st.header("⿣ Pilih Data untuk Orde terhadap B")
-    pair_B = st.multiselect("Pilih dua baris dengan [A] sama:", nomor_baris, default=[1, 3], key="select_pair_B")
-
-    y_frac = None
-    if len(pair_B) == 2:
-        idx1, idx2 = sorted(pair_B)
-        d1 = data[data["No"] == idx1].iloc[0]
-        d2 = data[data["No"] == idx2].iloc[0]
-
-        if d1['[A] (M)'] != d2['[A] (M)']:
-            st.error("Nilai [A] harus sama.")
-        else:
-            v1, v2 = d1['Laju (v)'], d2['Laju (v)']
-            B1, B2 = d1['[B] (M)'], d2['[B] (M)']
-            ratio_v = max(v1, v2) / min(v1, v2)
-            ratio_B = max(B1, B2) / min(B1, B2)
-
-            try:
-                y_val = math.log(ratio_v) / math.log(ratio_B)
-                y_frac = Fraction(y_val).limit_denominator()
-                st.success(f"Orde terhadap B = {y_frac} (≈ {y_val:.4f})")
-            except Exception as e:
-                st.error(f"Kesalahan: {e}")
-
-    if x_frac is not None and y_frac is not None:
-        total = x_frac + y_frac
-        st.header("⿤ Orde Total Reaksi")
-        st.success(f"Total Orde = {x_frac} + {y_frac} = {total} (≈ {float(total):.4f})")
-        st.info(f"Persamaan laju: v = k [A]^{x_frac} [B]^{y_frac}")
 
 # ================================
 # 📘 PETUNJUK
@@ -245,23 +168,12 @@ $$
 """)
 
 # ================================
-# 📈 HASIL
+# 📘 TENTANG
 # ================================
-elif page == "Hasil":
-    st.title("📈 Hasil & Analisis")
-    st.markdown("""
-### Di halaman ini kamu bisa:
-- Menampilkan grafik (belum tersedia)
-- Menyimpan hasil
-- Menganalisis tren perubahan laju reaksi
-
-🚧 Fitur tambahan bisa ditambahkan nanti.
-""")
-
 elif page == "📘Tentang":
     st.title("📘Tentang Kinetika Reaksi")
     
-    tab1, tab2, tab3, tab4 = st.tabs(["Tentang Website", "Dasar Teori", "Kontak", "Kritik dan Saran"])
+    tab1, tab2, tab3 = st.tabs(["Tentang Website", "Dasar Teori", "Kontak"])
 
     with tab1:
         st.subheader("Tentang Website")
@@ -297,10 +209,10 @@ v = k[A]^x[B]^y
 $$
 
 Di mana:
-- \\( v \\) = laju reaksi  
-- \\( k \\) = konstanta laju  
-- \\( x, y \\) = orde reaksi terhadap A dan B  
-- \\( [A], [B] \\) = konsentrasi reaktan  
+- \( v \) = laju reaksi  
+- \( k \) = konstanta laju  
+- \( x, y \) = orde reaksi terhadap A dan B  
+- \( [A], [B] \) = konsentrasi reaktan  
 """)
 
     with tab3:
@@ -313,26 +225,3 @@ Jika ada pertanyaan, kritik, atau saran silakan hubungi:
 
 Terima kasih telah menggunakan aplikasi ini! 🙌
 """)
-      
-    with tab4:
-        st.subheader("💬 Kritik dan Saran")
-        st.markdown("Silakan berikan masukan atau komentar Anda di bawah ini:")
-        
-        nama = st.text_input("Nama")
-        email = st.text_input("Email")
-        pesan = st.text_area("Pesan")
-    
-        if st.button("Kirim"):
-            if not nama or not email or not pesan:
-                st.warning("Harap isi semua kolom terlebih dahulu.")
-            else:
-                try:
-                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                    creds = ServiceAccountCredentials.from_json_keyfile_name("kritikdansaran-ae3375e6c7a1.json", scope)
-                    client = gspread.authorize(creds)
-
-                    sheet = client.open("KritikSaranWeb").sheet1
-                    sheet.append_row([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), nama, email, pesan])
-                    st.success("✅ Terima kasih! Kritik dan saranmu telah terkirim.")
-                except Exception as e:
-                    st.error(f"Terjadi kesalahan saat mengirim: {e}")
