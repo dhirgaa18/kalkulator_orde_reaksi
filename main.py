@@ -117,10 +117,6 @@ elif page == "Analisis Orde":
     else:
         st.warning("⚠️ Masukkan setidaknya dua pasang data valid.")
         
-if best_order is not None:
-    st.success(f"✅ **Orde terbaik adalah Orde {best_order}** dengan R² = `{best_r2:.4f}`")
-    st.markdown(f"**Model terbaik:** `{best_equation}`")
-
     st.subheader("⏳ Waktu Paruh dan Kadaluarsa")
     st.markdown("Perhitungan ini menggunakan nilai slope regresi sebagai konstanta laju reaksi `k`.")
 
