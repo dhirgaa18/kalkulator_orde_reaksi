@@ -15,7 +15,7 @@ page = st.sidebar.radio("Pilih Halaman", ["🏠Beranda", "📊Analisis Orde", "�
 # ================================
 # 📌 BERANDA
 # ================================
-if page == "Beranda":
+if page == "🏠Beranda":
     st.title("📊 Aplikasi Kinetika Reaksi")
     st.markdown("""
 ### Selamat datang di Aplikasi Kinetika Reaksi!
@@ -34,7 +34,7 @@ Aplikasi ini dirancang untuk membantu kamu menganalisis data eksperimen reaksi k
 # ================================
 # ⚗️ ANALISIS ORDE KINETIKA
 # ================================
-elif page == "Analisis Orde":
+elif page == "📊Analisis Orde":
     st.title("🔬 Analisis Orde Reaksi Berdasarkan Data Waktu dan Konsentrasi")
 
     st.markdown("""
@@ -148,8 +148,8 @@ elif page == "Analisis Orde":
 # ================================
 # 📌 PENENTUAN ORDE REAKSI
 # ================================
-elif page == "Penentuan Orde":
-    st.title("📊 Penentuan Orde Reaksi")
+elif page == "🧮Penentuan Orde":
+    st.title("🧮Penentuan Orde Reaksi")
 
     data_default = pd.DataFrame({
         '[A] (M)': [],
@@ -224,8 +224,8 @@ elif page == "Penentuan Orde":
 # ================================
 # 📘 PETUNJUK
 # ================================
-elif page == "Petunjuk":
-    st.title("📘 Petunjuk Penggunaan")
+elif page == "📖Petunjuk":
+    st.title("📖Petunjuk Penggunaan")
     st.markdown(r"""
 ### Cara Menentukan Orde Reaksi
 1. Masukkan data konsentrasi dan laju reaksi  
@@ -254,8 +254,8 @@ elif page == "Hasil":
 🚧 Fitur tambahan bisa ditambahkan nanti.
 """)
 
-elif page == "Tentang":
-    st.title("📘 Tentang Kinetika Reaksi")
+elif page == "📘Tentang":
+    st.title("📘Tentang Kinetika Reaksi")
     
     tab1, tab2, tab3 = st.tabs(["Tentang Website", "Dasar Teori", "Kontak"])
 
