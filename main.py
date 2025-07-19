@@ -256,7 +256,7 @@ elif page == "Hasil":
 
 elif page == "Tentang":
     st.title("📘 Tentang Kinetika Reaksi")
-    tab1, tab2, tab3, tab4 = st.tabs(["Dasar Teori", "Transformasi Grafik", "Waktu Paruh & Kadaluarsa", "Penentuan Orde"])
+    tab1 = st.tabs(["Dasar Teori"])
 
     with tab1:
         st.header("🔬 Dasar Teori Kinetika Reaksi")
