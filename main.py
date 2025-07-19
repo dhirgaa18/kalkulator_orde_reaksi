@@ -315,25 +315,25 @@ Terima kasih telah menggunakan aplikasi ini! 🙌
 """)
       
     with tab4:
-    st.subheader("💬 Kritik dan Saran")
-    st.markdown("Silakan berikan masukan atau komentar Anda di bawah ini:")
+        st.subheader("💬 Kritik dan Saran")
+        st.markdown("Silakan berikan masukan atau komentar Anda di bawah ini:")
+        
+        nama = st.text_input("Nama")
+        email = st.text_input("Email")
+        pesan = st.text_area("Pesan")
     
-    nama = st.text_input("Nama")
-    email = st.text_input("Email")
-    pesan = st.text_area("Pesan")
-
-    if st.button("Kirim"):
-        if not nama or not email or not pesan:
-            st.warning("Harap isi semua kolom terlebih dahulu.")
-        else:
-            try:
-                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                    "kritikdansaran-33150cb958fc.json", scope
-                )
-                client = gspread.authorize(creds)
-                sheet = client.open("KritikSaranWeb").sheet1
-                sheet.append_row([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), nama, email, pesan])
-                st.success("✅ Terima kasih! Kritik dan saranmu telah terkirim.")
-            except Exception as e:
-                st.error(f"Terjadi kesalahan saat mengirim: {e}")
+        if st.button("Kirim"):
+            if not nama or not email or not pesan:
+                st.warning("Harap isi semua kolom terlebih dahulu.")
+            else:
+                try:
+                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                    creds = ServiceAccountCredentials.from_json_keyfile_name(
+                        "kritikdansaran-33150cb958fc.json", scope
+                    )
+                    client = gspread.authorize(creds)
+                    sheet = client.open("KritikSaranWeb").sheet1
+                    sheet.append_row([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), nama, email, pesan])
+                    st.success("✅ Terima kasih! Kritik dan saranmu telah terkirim.")
+                except Exception as e:
+                    st.error(f"Terjadi kesalahan saat mengirim: {e}")
