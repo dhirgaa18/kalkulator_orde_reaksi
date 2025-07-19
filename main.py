@@ -117,6 +117,33 @@ elif page == "Analisis Orde":
     else:
         st.warning("⚠️ Masukkan setidaknya dua pasang data valid.")
 
+    st.subheader("⏳ Waktu Paruh dan Kadaluarsa")
+    st.markdown("Masukkan nilai [A₀] dan konstanta laju reaksi (k) untuk menghitung waktu paruh dan waktu kadaluarsa berdasarkan orde terbaik.")
+
+    col1, col2 = st.columns(2)
+    with col1:
+        A0_input = st.number_input("Konsentrasi awal [A₀] (mol/L)", min_value=0.0, format="%.4f", value=float(konsentrasi[0]))
+    with col2:
+        k_input = st.number_input("Konstanta laju reaksi (k)", min_value=0.0, format="%.6f")
+
+    if k_input > 0 and (A0_input > 0 or best_order == 1):
+        if best_order == 0:
+            t_half = A0_input / (2 * k_input)
+            t_90 = 0.1 * A0_input / k_input
+        elif best_order == 1:
+            t_half = math.log(2) / k_input
+            t_90 = 0.105 / k_input
+        elif best_order == 2:
+            t_half = 1 / (k_input * A0_input)
+            t_90 = 1 / (9 * k_input * A0_input)
+
+        st.markdown("### 📉 Hasil Perhitungan:")
+        st.latex(f"t_{{1/2}} = {t_half:.4f} \\, \\text{{(waktu yang dibutuhkan agar [A] tinggal setengah)}}")
+        st.latex(f"t_{{90}} = {t_90:.4f} \\, \\text{{(waktu sampai [A] tinggal 10\\%)}}")
+    else:
+        st.warning("Masukkan nilai k > 0 dan [A₀] > 0 (kecuali untuk orde 1).")
+
+
 # ================================
 # 📌 PENENTUAN ORDE REAKSI
 # ================================
