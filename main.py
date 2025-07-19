@@ -328,10 +328,9 @@ Terima kasih telah menggunakan aplikasi ini! 🙌
             else:
                 try:
                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                        "kritikdansaran-33150cb958fc.json", scope
-                    )
+                    creds = ServiceAccountCredentials.from_json_keyfile_name("kritikdansaran-4b53109a0788.json", scope)
                     client = gspread.authorize(creds)
+
                     sheet = client.open("KritikSaranWeb").sheet1
                     sheet.append_row([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), nama, email, pesan])
                     st.success("✅ Terima kasih! Kritik dan saranmu telah terkirim.")
