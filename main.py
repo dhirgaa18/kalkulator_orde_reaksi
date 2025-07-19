@@ -4,24 +4,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import r2_score
 import math
-from{
-  "type": "service_account",
-  "project_id": "kritikdansaran",
-  "private_key_id": "33150cb958fc7ba52fef4a8f8ceaca61dddcaa8c",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDh+JIrz3rXJpFu\nypBHNr8ISZIFegHu7DKVgzsVL+AP9yK01I/zx8W77BtM+O/WA20E6vdqfH3hdGx1\nGE2XGza6AgnScyNL/JDU92xmznO8yjetrUkr4wvojYLHjwXyLaMAmP52TuchzRrq\nZ030s08H38L7tKhoaPbIOQ/cknG8k6kF1pATsIgCqbKm1AxDgB6kTgqGpgYrjq8g\nSUepdG6yNYu9bB3LZ8zdRi5nPdL4UOX7AvbjZ4mNfb30N9ire0mUlLim0BpmE4z5\njXf/cbWDu/19RiwBX+KsGtPpk/F51nQUAqrsuXKEv8whE3l4Tj2g+AGRE6arAr2U\n8LhvcfClAgMBAAECggEAAjsY/lO7C7q2vthDGmDg++z2AxXURQ6R5UX5ZFknpiCz\neAONNEPpoNRQ5K6kd4FrJxxGuwdlmr8yfulxgqdjH+z7OdenJo3kxCV5LX6mR9vb\nNty6FzPTn0UeYGf6EA0BSfU4teRLhdrnhB7m9x56DkLYQvHio709inZ9wJi1hL4P\nsi8J9DpAEG0Hsl/hxb0F/8Sq/+zcS+eHGZmUsX8HmGPeR8NzvXUedbyzJAs5Kkqt\n2Gl5f7JCjUByWYZrj7XTqILAFsFhCTEtRauGqhWJqj9qlLIVsZJX6f0t54Bpm4oZ\nLtkoaabwC8fx5LT6Z3H6lSEW1jmg/IldLOET434W1QKBgQD02fL8M9w6ea+WmT5F\nilWPs8YblcaQesi2bR49kPNlriezu38R3SucOliNFRd7i+IF8FTpGjIHGw0N1Ka8\nQBJrjCE7o95vcRy98ZxpB4wa/jxq+utvZFB6QNTwnPMbYOofdaxjbyYcFzDiv6xp\nMwq3XNJOjt74wtnBHU0KAwjAzwKBgQDsQowUXMfr7qCjm8xSJnPckuNs7Pix7Pwt\nRha+feffsydMFdDBLy5fx0RUqXME64Fq4vxuqHayhD79r67Akm14Ni/8nRIyDQQT\n8Ef5XFFTYqWf6vG6xWdzXciAgest9KM9sMx7ZhecksFKdTyuxITMpzH6gD2yMZ3S\n01XTZBxMSwKBgQDNkfsGscfRtH6uUwTMP8NsPgQy/sHSZbQELYL5L6yajug4Z0/d\nQLKvnPDhqnanvJ7MW6X+e4bLHnQMS6CdZrHQZ7szJnbHW9FEzAiEydhghVlWfEqU\noEVNDwd46FzXfLu0JAjTBuuZJANgLIrlW/xATIcpe5xKgNVv5Fjc8gU0UwKBgQCP\nHjDlFN82mLNO6M345bpB3+lMzrBIeBq7Aj483uBbrpcbjAuNOxuIgZlu/8bhMBiR\nuzbXgc2Fjn7qBkaB+TG/JHQlPrELCL9zpJa1A6twK83Q9e3BClwEkscmsYzZpdxN\nPpBgIBQlkPDuPd6or/sSTiYEbTLygwPr9oGDMJ3DyQKBgHc0ghqdNFoSSsT7FDFf\nCO5h4FBJEODDQbITYhZI4aIrei8l9VAqtvha/B3aFhVZR5ZrAeyLjC4wrGXoMB6K\nu5ZSACOvgguKaF6ZwIXkmX5/FCOk/P1zL0f7XdZnzys2AUqO8rQ8hvwwFks7BKHi\ng7LTr5c46z1RW8ZXbGb5imq8\n-----END PRIVATE KEY-----\n",
-  "client_email": "streamlit-sheets@kritikdansaran.iam.gserviceaccount.com",
-  "client_id": "105040704556274186260",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/streamlit-sheets%40kritikdansaran.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
- fractions import Fraction
-
+from fractions import Fraction
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
+
 
 st.set_page_config(page_title="Kinetika Reaksi", layout="wide")
 
@@ -328,30 +315,25 @@ Terima kasih telah menggunakan aplikasi ini! 🙌
 """)
       
     with tab4:
-        st.subheader("💬 Kritik dan Saran")
-        st.markdown("Silakan berikan masukan atau komentar Anda di bawah ini:")
+    st.subheader("💬 Kritik dan Saran")
+    st.markdown("Silakan berikan masukan atau komentar Anda di bawah ini:")
     
-        nama = st.text_input("Nama")
-        email = st.text_input("Email")
-        pesan = st.text_area("Pesan")
-    
-        if st.button("Kirim"):
-            if not nama or not email or not pesan:
-                st.warning("Harap isi semua kolom terlebih dahulu.")
-            else:
-                try:
-                    # Scope dan autentikasi
-                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                    creds = ServiceAccountCredentials.from_json_keyfile_name("kritikdansaran-33150cb958fc.json", scope)
-                    client = gspread.authorize(creds)
-    
-                    # Ganti dengan nama Spreadsheet milikmu
-                    sheet = client.open("KritikSaranWeb").sheet1
-    
-                    # Tambahkan baris baru
-                    sheet.append_row([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), nama, email, pesan])
-    
-                    st.success("✅ Terima kasih! Kritik dan saranmu telah terkirim.")
-                except Exception as e:
-                    st.error(f"Terjadi kesalahan saat mengirim: {e}")
-    
+    nama = st.text_input("Nama")
+    email = st.text_input("Email")
+    pesan = st.text_area("Pesan")
+
+    if st.button("Kirim"):
+        if not nama or not email or not pesan:
+            st.warning("Harap isi semua kolom terlebih dahulu.")
+        else:
+            try:
+                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                creds = ServiceAccountCredentials.from_json_keyfile_name(
+                    "kritikdansaran-33150cb958fc.json", scope
+                )
+                client = gspread.authorize(creds)
+                sheet = client.open("KritikSaranWeb").sheet1
+                sheet.append_row([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), nama, email, pesan])
+                st.success("✅ Terima kasih! Kritik dan saranmu telah terkirim.")
+            except Exception as e:
+                st.error(f"Terjadi kesalahan saat mengirim: {e}")
