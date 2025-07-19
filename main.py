@@ -256,9 +256,22 @@ elif page == "Hasil":
 
 elif page == "Tentang":
     st.title("📘 Tentang Kinetika Reaksi")
-    tab1 = st.tabs(["Dasar Teori"])
+      tab1, tab2, tab3 = st.tabs(["Tentang Website", "Dasar Teori", "Kontak"])
 
     with tab1:
+            st.subheader("Tentang Website")
+            st.markdown("""
+    Aplikasi ini dikembangkan untuk membantu mahasiswa dan pelajar dalam memahami **kinetika reaksi** melalui pendekatan data eksperimen.  
+    Fitur yang tersedia antara lain:
+    - Analisis regresi untuk menentukan orde reaksi
+    - Penentuan orde reaksi berdasarkan data laju
+    - Perhitungan waktu paruh dan waktu kadaluarsa
+    - Visualisasi grafik transformasi konsentrasi
+    
+    Website ini dibuat dengan **Streamlit**, menggunakan pustaka Python seperti `numpy`, `pandas`, `matplotlib`, dan `scikit-learn`.
+    """)
+
+    with tab2:
         st.header("🔬 Dasar Teori Kinetika Reaksi")
         st.markdown("""
 Kinetika reaksi adalah cabang ilmu kimia yang mempelajari suatu reaksi kimia. Kinetika reaksi menerangkan dua hal yaitu mekanisme reaksi dan laju reaksi. Pengertian mekanisme reaksi adalah dipakai untuk menerangkan langkah-langkah dimana suatu reaktan menjadi produk. Laju reaksi adalah perubahan konsentrasi pereaksi ataupun suatu produk dalam suatu satuan waktu
@@ -275,4 +288,16 @@ Di mana:
 - \( k \) = konstanta laju
 - \( x, y \) = orde reaksi terhadap A dan B
 - \( [A], [B] \) = konsentrasi reaktan
+""")
+
+ with tab3:
+        st.subheader("Kontak Pengembang")
+        st.markdown("""
+Jika ada pertanyaan, kritik, atau saran silakan hubungi:
+
+📧 Email: `developer@example.com`  
+🐙 GitHub: [github.com/namapengembang](https://github.com/namapengembang)  
+🧪 Dosen Pembimbing: Ibu/Bapak [Nama Dosen]
+
+Terima kasih telah menggunakan aplikasi ini! 🙌
 """)
