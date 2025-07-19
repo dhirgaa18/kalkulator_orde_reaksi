@@ -19,6 +19,10 @@ from{
 }
  fractions import Fraction
 
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+from datetime import datetime
+
 st.set_page_config(page_title="Kinetika Reaksi", layout="wide")
 
 # Sidebar Navigasi
@@ -322,16 +326,32 @@ Jika ada pertanyaan, kritik, atau saran silakan hubungi:
 
 Terima kasih telah menggunakan aplikasi ini! 🙌
 """)
+      
     with tab4:
-        st.subheader("💬 Kritik & Saran")
-        st.markdown("""
-Kami sangat menghargai masukan dari Anda!
-Silakan tulis kritik dan saran Anda di bawah ini:
-""")
-
-        kritik = st.text_area("Tulis di sini", placeholder="Ketikkan kritik atau saran Anda...", height=150)
-        if st.button("Kirim"): 
-            if kritik.strip():
-                st.success("Terima kasih atas masukannya! 🙏")
+        st.subheader("💬 Kritik dan Saran")
+        st.markdown("Silakan berikan masukan atau komentar Anda di bawah ini:")
+    
+        nama = st.text_input("Nama")
+        email = st.text_input("Email")
+        pesan = st.text_area("Pesan")
+    
+        if st.button("Kirim"):
+            if not nama or not email or not pesan:
+                st.warning("Harap isi semua kolom terlebih dahulu.")
             else:
-                st.warning("Silakan isi terlebih dahulu kritik atau saran Anda.")
+                try:
+                    # Scope dan autentikasi
+                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                    creds = ServiceAccountCredentials.from_json_keyfile_name("kritikdansaran-33150cb958fc.json", scope)
+                    client = gspread.authorize(creds)
+    
+                    # Ganti dengan nama Spreadsheet milikmu
+                    sheet = client.open("KritikSaranWeb").sheet1
+    
+                    # Tambahkan baris baru
+                    sheet.append_row([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), nama, email, pesan])
+    
+                    st.success("✅ Terima kasih! Kritik dan saranmu telah terkirim.")
+                except Exception as e:
+                    st.error(f"Terjadi kesalahan saat mengirim: {e}")
+    
