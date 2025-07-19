@@ -119,6 +119,13 @@ elif page == "Analisis Orde":
         
     st.subheader("⏳ Waktu Paruh dan Kadaluarsa")
     st.markdown("Perhitungan ini menggunakan nilai slope regresi sebagai konstanta laju reaksi `k`.")
+if best_order is not None:
+    st.success(f"✅ **Orde terbaik adalah Orde {best_order}** dengan R² = `{best_r2:.4f}`")
+    st.markdown(f"**Model terbaik:** `{best_equation}`")
+
+    # Waktu paruh dan kadaluarsa
+    st.subheader("⏳ Waktu Paruh dan Kadaluarsa")
+    st.markdown("Perhitungan ini menggunakan nilai slope regresi sebagai konstanta laju reaksi `k`.")
 
     A0_input = st.number_input("Konsentrasi awal [A₀] (mol/L)", min_value=0.0, format="%.4f", value=float(konsentrasi[0]))
     k_input = abs(slope)
@@ -140,6 +147,7 @@ elif page == "Analisis Orde":
         st.latex(f"t_{{90}} = {t_90:.4f} \\, \\text{{(waktu agar [A] tinggal 10\\%)}}")
     else:
         st.warning("Masukkan nilai [A₀] > 0 (tidak boleh nol).")
+
         
 # ================================
 # 📌 PENENTUAN ORDE REAKSI
