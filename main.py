@@ -232,7 +232,7 @@ elif page == "🧮Penentuan Orde":
     # ====================
     if x_frac is not None and y_frac is not None:
         total = x_frac + y_frac
-        st.subheader("⿤ Orde Total Reaksi")
+        st.subheader("Orde Total Reaksi")
         st.success(f"Total Orde = {x_frac} + {y_frac} = {total} (≈ {float(total):.4f})")
         st.info(f"Persamaan laju: v = k [A]^{x_frac} [B]^{y_frac}")
 
