@@ -242,7 +242,7 @@ elif page == "🧮Penentuan Orde":
 # ================================
 elif page == "📖Petunjuk":
     st.title("📖Petunjuk Penggunaan")
-    st.markdown(r"""
+    st.markdown("""
 ### Cara Menentukan Orde Reaksi
 1. Masukkan data konsentrasi dan laju reaksi  
 2. Pilih dua percobaan:
@@ -251,16 +251,23 @@ elif page == "📖Petunjuk":
 3. Aplikasi akan hitung orde dalam pecahan dan desimal  
 
 ### Rumus:
-$$
-\frac{v_2}{v_1} = \left( \frac{[A]_2}{[A]_1} \right)^x \left( \frac{[B]_2}{[B]_1} \right)^y
-$$
+\[ 
+\frac{v_2}{v_1} = \left( \frac{[A]_2}{[A]_1} \right)^x \left( \frac{[B]_2}{[B]_1} \right)^y 
+\]
 
 ### Tabel Waktu Paruh dan Kadaluarsa Berdasarkan Orde Reaksi
-| Orde | Persamaan Linear | Waktu Paruh | Waktu Kadaluarsa |
-|------|------------------|-------------|-------------------|
-| 0    | \([A_t] = [A_0] - kt\) | \(t_{1/2} = \frac{[A_0]}{2k}\) | \(t_{90} = \frac{0.1 \cdot [A_0]}{k}\) |
-| 1    | \(\ln[A_t] = \ln[A_0] - kt\) | \(t_{1/2} = \frac{\ln 2}{k}\) | \(t_{90} = \frac{0.105}{k}\) |
-| 2    | \(\frac{1}{[A_t]} = \frac{1}{[A_0]} + kt\) | \(t_{1/2} = \frac{1}{k [A_0]}\) | \(t_{90} = \frac{1}{9 \cdot k [A_0]}\) |
+
+#### Orde 0
+\[ [A_t] = [A_0] - kt \]
+\[ t_{1/2} = \frac{[A_0]}{2k} \quad\quad t_{90} = \frac{0.1 \cdot [A_0]}{k} \]
+
+#### Orde 1
+\[ \ln[A_t] = \ln[A_0] - kt \]
+\[ t_{1/2} = \frac{\ln 2}{k} \quad\quad t_{90} = \frac{0.105}{k} \]
+
+#### Orde 2
+\[ \frac{1}{[A_t]} = \frac{1}{[A_0]} + kt \]
+\[ t_{1/2} = \frac{1}{k [A_0]} \quad\quad t_{90} = \frac{1}{9 \cdot k [A_0]} \]
 """)
 
 # ================================
