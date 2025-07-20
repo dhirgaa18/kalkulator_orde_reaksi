@@ -171,7 +171,9 @@ elif page == "🧮Penentuan Orde":
     nomor_baris = data["No"].tolist()
 
     st.header("⿢ Pilih Data untuk Orde terhadap A")
-    pair_A = st.multiselect("Pilih dua baris dengan [B] sama:", nomor_baris, default=[1, 2], key="select_pair_A")
+    default_pair_A = [1, 2] if all(x in nomor_baris for x in [1, 2]) else []
+    pair_A = st.multiselect("Pilih dua baris dengan [B] sama:", nomor_baris, default=default_pair_A, key="select_pair_A")
+
 
     x_frac = None
     if len(pair_A) == 2:
@@ -195,7 +197,9 @@ elif page == "🧮Penentuan Orde":
                 st.error(f"Kesalahan: {e}")
 
     st.header("Pilih Data untuk Orde terhadap B")
-    pair_B = st.multiselect("Pilih dua baris dengan [A] sama:", nomor_baris, default=[1, 3], key="select_pair_B")
+    default_pair_B = [1, 3] if all(x in nomor_baris for x in [1, 3]) else []
+    pair_B = st.multiselect("Pilih dua baris dengan [A] sama:", nomor_baris, default=default_pair_B, key="select_pair_B")
+
 
     y_frac = None
     if len(pair_B) == 2:
