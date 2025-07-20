@@ -276,7 +276,7 @@ Fitur yang tersedia antara lain:
 
 Website ini dibuat dengan **Streamlit**, menggunakan pustaka Python seperti `numpy`, `pandas`, `matplotlib`, dan `scikit-learn`.
 
-**Aplikasi Ini Dikembangkan Oleh Kelompok 4 (1B)**
+**Website Ini Dikembangkan Oleh Kelompok 4 (1B)**
 1. Affan Fakhri Izzudin
 2. Dhirga Fayzul Haq
 3. Laudya Calista Ardelia Ramadhani
