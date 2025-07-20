@@ -224,24 +224,20 @@ elif page == "🧮Penentuan Orde":
         st.success(f"Total Orde = {x_frac} + {y_frac} = {total} (≈ {float(total):.4f})")
         st.info(f"Persamaan laju: v = k [A]^{x_frac} [B]^{y_frac}")
 
-# ================================
-# 📘 PETUNJUK
-# ================================
-elif page == "📖Petunjuk":
     st.title("📖Petunjuk Penggunaan")
-    st.markdown(r"""
-### Cara Menentukan Orde Reaksi
-1. Masukkan data konsentrasi dan laju reaksi  
-2. Pilih dua percobaan:
-   - [B] konstan untuk cari orde A  
-   - [A] konstan untuk cari orde B  
-3. Aplikasi akan hitung orde dalam pecahan dan desimal  
-
-### Rumus:
-$$
-\frac{v_2}{v_1} = \left( \frac{[A]_2}{[A]_1} \right)^x \left( \frac{[B]_2}{[B]_1} \right)^y
-$$
-""")
+        st.markdown(r"""
+    ### Cara Menentukan Orde Reaksi
+    1. Masukkan data konsentrasi dan laju reaksi  
+    2. Pilih dua percobaan:
+       - [B] konstan untuk cari orde A  
+       - [A] konstan untuk cari orde B  
+    3. Aplikasi akan hitung orde dalam pecahan dan desimal  
+    
+    ### Rumus:
+    $$
+    \frac{v_2}{v_1} = \left( \frac{[A]_2}{[A]_1} \right)^x \left( \frac{[B]_2}{[B]_1} \right)^y
+    $$
+    """)
 
 # ================================
 # 📘 PETUNJUK
