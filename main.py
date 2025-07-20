@@ -18,7 +18,7 @@ page = st.sidebar.radio("Pilih Halaman", ["🏠Beranda", "📊Analisis Orde", "�
 # 📌 BERANDA
 # ================================
 if page == "🏠Beranda":
-    st.title("📊 Aplikasi Kinetika Reaksi")
+    st.title("🏠 Aplikasi Kinetika Reaksi")
     st.markdown("""
 ### Selamat datang di Aplikasi Kinetika Reaksi!
 
@@ -37,7 +37,7 @@ Aplikasi ini dirancang untuk membantu kamu menganalisis data eksperimen reaksi k
 # ⚗️ ANALISIS ORDE KINETIKA
 # ================================
 elif page == "📊Analisis Orde":
-    st.title("🔬 Analisis Orde Reaksi Berdasarkan Data Waktu dan Konsentrasi")
+    st.title("📊 Analisis Orde Reaksi Berdasarkan Data Waktu dan Konsentrasi")
 
     st.markdown("""
     Masukkan data waktu dan konsentrasi. Program ini akan menghitung regresi linier berdasarkan model kinetika reaksi:
