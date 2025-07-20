@@ -173,7 +173,7 @@ elif page == "🧮Penentuan Orde":
         st.warning("Masukkan minimal 2 baris data valid untuk melanjutkan.")
         st.stop()
 
-    st.subheader("⿢ Pilih Data untuk Orde terhadap A")
+    st.subheader("Pilih Data untuk Orde terhadap A")
     default_pair_A = [1, 2] if all(x in nomor_baris for x in [1, 2]) else []
     pair_A = st.multiselect("Pilih dua baris dengan [B] sama:", nomor_baris, default=default_pair_A, key="select_pair_A")
 
@@ -200,7 +200,7 @@ elif page == "🧮Penentuan Orde":
             except Exception as e:
                 st.error(f"Kesalahan perhitungan: {e}")
 
-    st.subheader("⿢ Pilih Data untuk Orde terhadap B")
+    st.subheader("Pilih Data untuk Orde terhadap B")
     default_pair_B = [1, 3] if all(x in nomor_baris for x in [1, 3]) else []
     pair_B = st.multiselect("Pilih dua baris dengan [A] sama:", nomor_baris, default=default_pair_B, key="select_pair_B")
 
@@ -226,14 +226,7 @@ elif page == "🧮Penentuan Orde":
                     st.success(f"Orde terhadap B = {y_frac} (≈ {y_val:.4f})")
             except Exception as e:
                 st.error(f"Kesalahan perhitungan: {e}")
-
-    if x_frac is not None and y_frac is not None:
-        total = x_frac + y_frac
-        st.subheader("⿤ Orde Total Reaksi")
-        st.success(f"Total Orde = {x_frac} + {y_frac} = {total} (≈ {float(total):.4f})")
-        st.info(f"Persamaan laju: v = k [A]^{x_frac} [B]^{y_frac}")
-
-
+                
     # ====================
     # ORDE TOTAL
     # ====================
