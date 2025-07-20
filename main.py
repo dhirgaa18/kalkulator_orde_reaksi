@@ -303,34 +303,28 @@ Di mana:
 - \( x, y \) = orde reaksi terhadap A dan B  
 - \( [A], [B] \) = konsentrasi reaktan  
 
-Faktor yang Mempengaruhi Laju Reaksi
+**Faktor yang Mempengaruhi Laju Reaksi**
 Laju reaksi kimia dapat dipengaruhi oleh beberapa faktor. Setiap faktor ini dapat mempercepat atau memperlambat proses perubahan kimia yang terjadi.
 
-1. Konsentrasi
+**1. Konsentrasi**
 Konsentrasi reaktan yang lebih tinggi meningkatkan laju reaksi.
-
 Partikel yang lebih banyak membuat tumbukan antar partikel menjadi lebih sering, sehingga memperbesar kemungkinan terjadinya reaksi kimia.
 
-2. Suhu
+**2. Suhu**
 Kenaikan suhu mempercepat laju reaksi.
-
 Suhu yang lebih tinggi menyebabkan energi kinetik partikel bertambah, sehingga tumbukan lebih sering dan lebih efektif terjadi.
-
 Secara umum, laju reaksi dapat meningkat dua kali lipat setiap kenaikan suhu sebesar 10°C.
 
-3. Luas Permukaan
+**3. Luas Permukaan**
 Luas permukaan padatan yang lebih besar (misalnya, dalam bentuk serbuk halus) mempercepat reaksi.
-
 Semakin luas permukaan bidang sentuh antar partikel, maka semakin besar peluang tumbukan yang efektif.
 
-4. Katalis
+**4. Katalis**
 Katalis adalah zat yang mempercepat laju reaksi tanpa ikut bereaksi secara permanen.
-
 Katalis bekerja dengan menurunkan energi aktivasi yang dibutuhkan reaksi, sehingga reaksi berlangsung lebih cepat.
-
 Katalis positif mempercepat reaksi, sedangkan katalis negatif (inhibitor) menghambat reaksi.
 
-5. Tekanan (Khusus Gas)
+**5. Tekanan (Khusus Gas)**
 Pada reaksi yang melibatkan gas, peningkatan tekanan akan meningkatkan laju reaksi dengan membuat molekul gas menjadi lebih rapat sehingga tumbukan antar molekul meningkat.
 """)
 
