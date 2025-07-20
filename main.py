@@ -316,8 +316,7 @@ Di mana:
 Jika ada pertanyaan, kritik, atau saran silakan hubungi:
 
 📧 Email: `dhirgahaq18@gmail.com`  
-🐙 GitHub: https://github.com/dhirgaa18
-            https://github.com/slmaanailh
+🐙 GitHub: https://github.com/dhirgaa18 ; https://github.com/slmaanailh
 
 Terima kasih telah menggunakan aplikasi ini! 🙌
 """)
