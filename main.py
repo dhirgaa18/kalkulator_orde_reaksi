@@ -148,32 +148,37 @@ elif page == "📊Analisis Orde":
         else:
             st.warning("Masukkan nilai [A₀] > 0 (tidak boleh nol).")
             
-# ================================
-# 🧮 PENENTUAN ORDE REAKSI
-# ================================
 elif page == "🧮Penentuan Orde":
-    st.title("🧮Penentuan Orde Reaksi")
+    st.title("🧮 Penentuan Orde Reaksi")
 
+    # Inisialisasi data kosong
     data_default = pd.DataFrame({
         '[A] (M)': [],
         '[B] (M)': [],
         'Laju (v)': [],
     })
-    data_default.insert(0, "No", range(1, len(data_default) + 1))
 
-    st.header("Masukkan Data Percobaan")
+    st.subheader("Masukkan Data Percobaan")
     data = st.data_editor(data_default, num_rows="dynamic", use_container_width=True, key="data_input")
 
-    if len(data) < 2:
-        st.warning("Masukkan minimal 2 baris data untuk melanjutkan.")
+    # Tambahkan kolom No secara otomatis
+    if len(data) > 0:
+        data = data.reset_index(drop=True)
+        data["No"] = data.index + 1
+        nomor_baris = data["No"].tolist()
+    else:
+        nomor_baris = []
+
+    if len(nomor_baris) < 2:
+        st.warning("Masukkan minimal 2 baris data valid untuk melanjutkan.")
         st.stop()
 
-    nomor_baris = data["No"].tolist()
-
-    st.header("⿢ Pilih Data untuk Orde terhadap A")
+    # ====================
+    # ORDE TERHADAP A
+    # ====================
+    st.subheader("⿢ Pilih Data untuk Orde terhadap A")
     default_pair_A = [1, 2] if all(x in nomor_baris for x in [1, 2]) else []
     pair_A = st.multiselect("Pilih dua baris dengan [B] sama:", nomor_baris, default=default_pair_A, key="select_pair_A")
-
 
     x_frac = None
     if len(pair_A) == 2:
@@ -184,22 +189,23 @@ elif page == "🧮Penentuan Orde":
         if d1['[B] (M)'] != d2['[B] (M)']:
             st.error("Nilai [B] harus sama.")
         else:
-            v1, v2 = d1['Laju (v)'], d2['Laju (v)']
-            A1, A2 = d1['[A] (M)'], d2['[A] (M)']
-            ratio_v = max(v1, v2) / min(v1, v2)
-            ratio_A = max(A1, A2) / min(A1, A2)
-
             try:
+                v1, v2 = d1['Laju (v)'], d2['Laju (v)']
+                A1, A2 = d1['[A] (M)'], d2['[A] (M)']
+                ratio_v = max(v1, v2) / min(v1, v2)
+                ratio_A = max(A1, A2) / min(A1, A2)
                 x_val = math.log(ratio_v) / math.log(ratio_A)
                 x_frac = Fraction(x_val).limit_denominator()
                 st.success(f"Orde terhadap A = {x_frac} (≈ {x_val:.4f})")
             except Exception as e:
-                st.error(f"Kesalahan: {e}")
+                st.error(f"Kesalahan perhitungan: {e}")
 
-    st.header("Pilih Data untuk Orde terhadap B")
+    # ====================
+    # ORDE TERHADAP B
+    # ====================
+    st.subheader("⿢ Pilih Data untuk Orde terhadap B")
     default_pair_B = [1, 3] if all(x in nomor_baris for x in [1, 3]) else []
     pair_B = st.multiselect("Pilih dua baris dengan [A] sama:", nomor_baris, default=default_pair_B, key="select_pair_B")
-
 
     y_frac = None
     if len(pair_B) == 2:
@@ -210,23 +216,26 @@ elif page == "🧮Penentuan Orde":
         if d1['[A] (M)'] != d2['[A] (M)']:
             st.error("Nilai [A] harus sama.")
         else:
-            v1, v2 = d1['Laju (v)'], d2['Laju (v)']
-            B1, B2 = d1['[B] (M)'], d2['[B] (M)']
-            ratio_v = max(v1, v2) / min(v1, v2)
-            ratio_B = max(B1, B2) / min(B1, B2)
-
             try:
+                v1, v2 = d1['Laju (v)'], d2['Laju (v)']
+                B1, B2 = d1['[B] (M)'], d2['[B] (M)']
+                ratio_v = max(v1, v2) / min(v1, v2)
+                ratio_B = max(B1, B2) / min(B1, B2)
                 y_val = math.log(ratio_v) / math.log(ratio_B)
                 y_frac = Fraction(y_val).limit_denominator()
                 st.success(f"Orde terhadap B = {y_frac} (≈ {y_val:.4f})")
             except Exception as e:
-                st.error(f"Kesalahan: {e}")
+                st.error(f"Kesalahan perhitungan: {e}")
 
+    # ====================
+    # ORDE TOTAL
+    # ====================
     if x_frac is not None and y_frac is not None:
         total = x_frac + y_frac
-        st.header("⿤ Orde Total Reaksi")
+        st.subheader("⿤ Orde Total Reaksi")
         st.success(f"Total Orde = {x_frac} + {y_frac} = {total} (≈ {float(total):.4f})")
         st.info(f"Persamaan laju: v = k [A]^{x_frac} [B]^{y_frac}")
+
         
 # ================================
 # 📘 PETUNJUK
