@@ -254,6 +254,13 @@ elif page == "📖Petunjuk":
 $$
 \frac{v_2}{v_1} = \left( \frac{[A]_2}{[A]_1} \right)^x \left( \frac{[B]_2}{[B]_1} \right)^y
 $$
+
+### Tabel Waktu Paruh dan Kadaluarsa Berdasarkan Orde Reaksi
+| Orde | Persamaan Linear | Waktu Paruh | Waktu Kadaluarsa |
+|------|------------------|-------------|-------------------|
+| 0    | \([A_t] = [A_0] - kt\) | \(t_{1/2} = \frac{[A_0]}{2k}\) | \(t_{90} = \frac{0.1 \cdot [A_0]}{k}\) |
+| 1    | \(\ln[A_t] = \ln[A_0] - kt\) | \(t_{1/2} = \frac{\ln 2}{k}\) | \(t_{90} = \frac{0.105}{k}\) |
+| 2    | \(\frac{1}{[A_t]} = \frac{1}{[A_0]} + kt\) | \(t_{1/2} = \frac{1}{k [A_0]}\) | \(t_{90} = \frac{1}{9 \cdot k [A_0]}\) |
 """)
 
 # ================================
