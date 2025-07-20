@@ -225,7 +225,7 @@ elif page == "🧮Penentuan Orde":
         st.info(f"Persamaan laju: v = k [A]^{x_frac} [B]^{y_frac}")
 
     st.title("📖Petunjuk Penggunaan")
-        st.markdown(r"""
+    st.markdown(r"""
     ### Cara Menentukan Orde Reaksi
     1. Masukkan data konsentrasi dan laju reaksi  
     2. Pilih dua percobaan:
