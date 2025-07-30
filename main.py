@@ -243,7 +243,7 @@ elif page == "🧮Penentuan Orde":
 elif page == "📘Tentang":
     st.title("📘Tentang Kinetika Reaksi")
 
-    tab1, tab2, tab3 = st.tabs(["Tentang Website", "Dasar Teori", "Kontak"])
+    tab1, tab2 = st.tabs(["Tentang Website", "Dasar Teori"])
 
     with tab1:
         st.subheader("Tentang Website")
@@ -307,15 +307,4 @@ Katalis positif mempercepat reaksi, sedangkan katalis negatif (inhibitor) mengha
 
 **5. Tekanan (Khusus Gas):**
 Pada reaksi yang melibatkan gas, peningkatan tekanan akan meningkatkan laju reaksi dengan membuat molekul gas menjadi lebih rapat sehingga tumbukan antar molekul meningkat.
-""")
-
-    with tab3:
-        st.subheader("Kontak Pengembang")
-        st.markdown("""
-Jika ada pertanyaan, kritik, atau saran silakan hubungi:
-
-📧 Email: `dhirgahaq18@gmail.com`  
-🐙 GitHub: https://github.com/dhirgaa18 ; https://github.com/slmaanailh
-
-Terima kasih telah menggunakan aplikasi ini! 🙌
 """)
