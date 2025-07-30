@@ -240,8 +240,8 @@ elif page == "🧮Penentuan Orde":
 # ================================
 # 📘 TENTANG
 # ================================
-elif page == "📘Tentang":
-    st.title("📘Tentang Kinetika Reaksi")
+if page == "📘Tentang":
+    st.title("📘 Tentang Kinetika Reaksi")
 
     tab1, tab2 = st.tabs(["Tentang Website", "Dasar Teori"])
 
@@ -268,43 +268,59 @@ Website ini dibuat dengan **Streamlit**, menggunakan pustaka Python seperti `num
     with tab2:
         st.header("🔬 Dasar Teori Kinetika Reaksi")
         st.markdown(r"""
-Kinetika reaksi adalah cabang ilmu kimia yang mempelajari suatu reaksi kimia. Kinetika reaksi menerangkan dua hal yaitu mekanisme reaksi dan laju reaksi. Pengertian mekanisme reaksi adalah dipakai untuk menerangkan langkah-langkah dimana suatu reaktan menjadi produk. Laju reaksi adalah perubahan konsentrasi pereaksi ataupun suatu produk dalam suatu satuan waktu.
+<p style='text-align: justify; text-indent: 40px;'>
+Kinetika reaksi adalah cabang ilmu kimia yang mempelajari suatu reaksi kimia. Kinetika reaksi menerangkan dua hal yaitu <strong>mekanisme reaksi</strong> dan <strong>laju reaksi</strong>. Pengertian mekanisme reaksi adalah dipakai untuk menerangkan langkah-langkah dimana suatu reaktan menjadi produk. Laju reaksi adalah perubahan konsentrasi pereaksi ataupun suatu produk dalam suatu satuan waktu.
+</p>
 
+<p style='text-align: justify; text-indent: 40px;'>
 Laju menyatakan seberapa cepat atau seberapa lambat suatu proses berlangsung. Laju menyatakan besarnya perubahan yang terjadi dalam satu satuan waktu. Reaksi kimia adalah proses perubahan zat pereaksi menjadi produk. Seiring dengan bertambahnya waktu reaksi, maka jumlah zat pereaksi semakin sedikit, sedangkan produk semakin banyak. Laju reaksi dinyatakan sebagai laju berkurangnya pereaksi atau laju terbentuknya produk. Kecepatan reaksi kimia ditentukan oleh orde reaksi, yaitu jumlah dari eksponen konsentrasi pada persamaan kecepatan reaksi. Orde suatu reaksi ialah jumlah semua eksponen dari konsentrasi dalam persamaan laju. Orde reaksi juga menyatakan besarnya pengaruh konsentrasi reaktan (pereaksi) terhadap laju reaksi.
+</p>
 
-Dengan persamaan:
+<p style='text-align: justify; text-indent: 40px;'>Dengan persamaan:</p>
+""", unsafe_allow_html=True)
 
-$$
-v = k[A]^x[B]^y
-$$
+        st.latex(r"v = k[A]^x[B]^y")
 
-Di mana:
-- \( v \) = laju reaksi  
-- \( k \) = konstanta laju  
-- \( x, y \) = orde reaksi terhadap A dan B  
-- \( [A], [B] \) = konsentrasi reaktan  
+        st.markdown(r"""
+<p style='text-align: justify; text-indent: 40px;'>Di mana:</p>
+<ul style='margin-left: 60px; text-align: justify;'>
+    <li><strong>(v)</strong> = laju reaksi</li>
+    <li><strong>(k)</strong> = konstanta laju</li>
+    <li><strong>(x, y)</strong> = orde reaksi terhadap A dan B</li>
+    <li><strong>([A], [B])</strong> = konsentrasi reaktan</li>
+</ul>
 
-**Faktor yang Mempengaruhi Laju Reaksi**
-Laju reaksi kimia dapat dipengaruhi oleh beberapa faktor. Setiap faktor ini dapat mempercepat atau memperlambat proses perubahan kimia yang terjadi.
+### ⚙️ Faktor-faktor yang Mempengaruhi Laju Reaksi
 
-**1. Konsentrasi:**
-Konsentrasi reaktan yang lebih tinggi meningkatkan laju reaksi.
-Partikel yang lebih banyak membuat tumbukan antar partikel menjadi lebih sering, sehingga memperbesar kemungkinan terjadinya reaksi kimia.
+<p style='text-align: justify; text-indent: 40px;'>
+Laju reaksi dipengaruhi oleh beberapa faktor berikut:
+</p>
 
-**2. Suhu:**
-Kenaikan suhu mempercepat laju reaksi.
-Suhu yang lebih tinggi menyebabkan energi kinetik partikel bertambah, sehingga tumbukan lebih sering dan lebih efektif terjadi.
-Secara umum, laju reaksi dapat meningkat dua kali lipat setiap kenaikan suhu sebesar 10°C.
+**1. 📌 Konsentrasi**  
+<p style='text-align: justify; text-indent: 40px;'>
+Konsentrasi reaktan yang lebih tinggi meningkatkan laju reaksi. Partikel yang lebih banyak membuat tumbukan antar partikel menjadi lebih sering, sehingga memperbesar kemungkinan terjadinya reaksi kimia.
+</p>
 
-**3. Luas Permukaan:**
-Luas permukaan padatan yang lebih besar (misalnya, dalam bentuk serbuk halus) mempercepat reaksi.
-Semakin luas permukaan bidang sentuh antar partikel, maka semakin besar peluang tumbukan yang efektif.
+**2. 🌡 Suhu**  
+<p style='text-align: justify; text-indent: 40px;'>
+Kenaikan suhu mempercepat laju reaksi. Suhu yang lebih tinggi menyebabkan energi kinetik partikel bertambah, sehingga tumbukan lebih sering dan lebih efektif terjadi.  
+<em>Secara umum, laju reaksi dapat meningkat dua kali lipat setiap kenaikan suhu sebesar 10°C.</em>
+</p>
 
-**4. Katalis:**
-zat yang mempercepat laju reaksi tanpa ikut bereaksi secara permanen.
-Katalis bekerja dengan menurunkan energi aktivasi yang dibutuhkan reaksi, sehingga reaksi berlangsung lebih cepat.
-Katalis positif mempercepat reaksi, sedangkan katalis negatif (inhibitor) menghambat reaksi.
+**3. 📐 Luas Permukaan**  
+<p style='text-align: justify; text-indent: 40px;'>
+Luas permukaan padatan yang lebih besar (misalnya, dalam bentuk serbuk halus) mempercepat reaksi. Semakin luas permukaan bidang sentuh antar partikel, maka semakin besar peluang tumbukan yang efektif.
+</p>
 
-**5. Tekanan (Khusus Gas):**
+**4. ⚗ Katalis**  
+<p style='text-align: justify; text-indent: 40px;'>
+Zat yang mempercepat atau memperlambat reaksi tanpa ikut bereaksi secara permanen. Katalis bekerja dengan menurunkan energi aktivasi yang dibutuhkan reaksi, sehingga reaksi berlangsung lebih cepat.  
+<strong>Katalis positif</strong> mempercepat reaksi  
+<strong>Inhibitor</strong> (katalis negatif) memperlambat reaksi
+</p>
+
+**5. 💨 Tekanan (Khusus Gas)**  
+<p style='text-align: justify; text-indent: 40px;'>
 Pada reaksi yang melibatkan gas, peningkatan tekanan akan meningkatkan laju reaksi dengan membuat molekul gas menjadi lebih rapat sehingga tumbukan antar molekul meningkat.
-""")
+</p>
+""", unsafe_allow_html=True)
